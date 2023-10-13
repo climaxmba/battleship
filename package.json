@@ -1,0 +1,29 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "Battleship project on The Odin Project's curriculum using Test Driven Development with ES6 classes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "watch": "jest --watch",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/climaxmba/battleship.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/climaxmba/battleship/issues"
+  },
+  "homepage": "https://github.com/climaxmba/battleship#readme",
+  "devDependencies": {
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  }
+}
