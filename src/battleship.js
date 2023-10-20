@@ -89,8 +89,13 @@ class GameBoard {
     return [];
   }
   #isValidPos(pos) {
-    // TODO
-    return false || true;
+    const adjPos = this.board.get(pos);
+    const list = this.getAdjSquares(pos);
+
+    for (let i = 0; i < list.size; i++) {
+      if (adjPos.has(list[i])) return false;
+    }
+    return true;
   }
 }
 
