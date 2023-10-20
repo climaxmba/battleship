@@ -82,11 +82,32 @@ class GameBoard {
     this.#addShip(new Ship(1));
   }
   #addShip(ship, isVertical = false) {
-    this.ships.add({ship, coords: this.#createShipCoords(ship, isVertical)})
+    this.ships.add({ ship, coords: this.#createShipCoords(ship, isVertical) });
   }
   #createShipCoords(ship, isVertical) {
-    // TODO
-    return [];
+    const x = Math.floor(Math.random() * 10),
+      y = Math.floor(Math.random() * 10),
+      coordsList = new Set();
+
+    // Loop through the length of the ship to check if 'pos' is valid
+    for (let i = 0; i < ship.length; i++) {
+      if (isVertical) {
+        const pos = `${x},${y + i}`;
+        if (this.#isValidPos(pos)) {
+          coordsList.add(pos);
+          continue;
+        }
+        return this.#createShipCoords(ship, isVertical);
+      } else {
+        const pos = `${x + i},${y}`;
+        if (this.#isValidPos(pos)) {
+          coordsList.add(pos);
+          continue;
+        }
+        return this.#createShipCoords(ship, isVertical);
+      }
+    }
+    return coordsList;
   }
   #isValidPos(pos) {
     const adjPos = this.board.get(pos);
