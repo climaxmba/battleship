@@ -22,7 +22,6 @@ class GameBoard {
     this.board = new Map();
     this.ships = new Set();
     this.#initBoard();
-    console.log(this.board);
   }
 
   addSquare(square) {
