@@ -26,44 +26,44 @@ class GameBoard {
   }
 
   addSquare(square) {
-    this.board.set(square, new Set());
+    this.board.set(square, {square, adjSquares: new Set()});
   }
 
   connectSquare(square1, square2) {
     if (this.board.has(square1) && this.board.has(square2)) {
-      this.board.get(square1).add(square2);
-      this.board.get(square2).add(square1);
+      this.board.get(square1).adjSquares.add(this.board.get(square2));
+      this.board.get(square2).adjSquares.add(this.board.get(square1));
     }
   }
 
   getAdjSquares(square) {
-    return this.board.get(square);
+    return this.board.get(square).adjSquares;
   }
 
   areNeighboors(square1, square2) {
-    return this.board.get(square1).has(square2);
+    return this.board.get(square1).adjSquares.has(square2);
   }
 
   #initBoard() {
     // Add squares
-    for (let i = 0; 1 > 10; i++) {
+    for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 10; j++) {
         this.addSquare(`${i},${j}`);
       }
     }
 
     // Connect squares
-    for (let i = 0; 1 > 10; i++) {
+    for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 10; j++) {
         const currPos = `${i},${j}`;
-        this.connectSquare(currPos, this.board.get(`${i + 1},${j}`));
-        this.connectSquare(currPos, this.board.get(`${i - 1},${j}`));
-        this.connectSquare(currPos, this.board.get(`${i},${j + 1}`));
-        this.connectSquare(currPos, this.board.get(`${i},${j - 1}`));
-        this.connectSquare(currPos, this.board.get(`${i + 1},${j + 1}`));
-        this.connectSquare(currPos, this.board.get(`${i - 1},${j - 1}`));
-        this.connectSquare(currPos, this.board.get(`${i + 1},${j - 1}`));
-        this.connectSquare(currPos, this.board.get(`${i - 1},${j + 1}`));
+        this.connectSquare(currPos, `${i + 1},${j}`);
+        this.connectSquare(currPos, `${i - 1},${j}`);
+        this.connectSquare(currPos, `${i},${j + 1}`);
+        this.connectSquare(currPos, `${i},${j - 1}`);
+        this.connectSquare(currPos, `${i + 1},${j + 1}`);
+        this.connectSquare(currPos, `${i - 1},${j - 1}`);
+        this.connectSquare(currPos, `${i + 1},${j - 1}`);
+        this.connectSquare(currPos, `${i - 1},${j + 1}`);
       }
     }
 
@@ -110,11 +110,13 @@ class GameBoard {
     return coordsList;
   }
   #isValidPos(pos) {
-    const adjPos = this.board.get(pos);
-    const list = this.getAdjSquares(pos);
+    if (!this.board.has(pos)) return false;
 
-    for (let i = 0; i < list.size; i++) {
-      if (adjPos.has(list[i])) return false;
+    const adjPos = [...this.board.get(pos).adjSquares].map(obj => obj.square);
+    const list = [...this.ships].flatMap(obj => [...obj.coords]);
+
+    for (let i = 0; i < list.length; i++) {
+      if (adjPos.includes(list[i])) return false;
     }
     return true;
   }
