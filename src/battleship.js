@@ -18,10 +18,11 @@ class GameBoard {
   board;
   ships;
 
-  constructor() {
+  constructor(addRandomShips = true) {
     this.board = new Map();
     this.ships = new Set();
     this.#initBoard();
+    if (addRandomShips) this.#addShips();
   }
 
   addSquare(square) {
@@ -65,8 +66,6 @@ class GameBoard {
         this.connectSquare(currPos, `${i - 1},${j + 1}`);
       }
     }
-
-    this.#addShips();
   }
   #addShips() {
     this.#addShip(new Ship(4), true);
