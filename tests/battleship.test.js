@@ -40,11 +40,19 @@ describe("Ship", () => {
 });
 
 describe("GameBoard", () => {
-  let board1, board2;
+  let board1 = new GameBoard(),
+    board2 = new GameBoard(),
+    board3 = new GameBoard(false);
 
   beforeEach(() => {
     board1 = new GameBoard();
     board2 = new GameBoard();
+    board3 = new GameBoard(false);
+  });
+
+  test('adds ships by default', () => {
+    expect(board1.ships.size && board2.ships.size).toBeTruthy();
+    expect(board3.ships.size).toBeFalsy();
   });
 
   test("no overlaping ships", () => {
@@ -66,21 +74,22 @@ describe("GameBoard", () => {
     board1.ships.forEach((shipObj) => {
       shipObj.coords.forEach((pos) => {
         board1.ships.forEach((otherShipObj) => {
-          otherShipObj.coords.forEach(otherPos => {
+          otherShipObj.coords.forEach((otherPos) => {
             expect(board1.getAdjSquares(pos).has(otherPos)).toBeFalsy();
           });
         });
       });
     });
-    
+
     board2.ships.forEach((shipObj) => {
       shipObj.coords.forEach((pos) => {
         board2.ships.forEach((otherShipObj) => {
-          otherShipObj.coords.forEach(otherPos => {
+          otherShipObj.coords.forEach((otherPos) => {
             expect(board2.getAdjSquares(pos).has(otherPos)).toBeFalsy();
           });
         });
       });
     });
   });
+  
 });
