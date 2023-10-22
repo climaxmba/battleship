@@ -70,26 +70,42 @@ describe("GameBoard", () => {
   });
 
   test("ships are not too close to each other", () => {
-    // Compare each position lists for each ship against each other
-    board1.ships.forEach((shipObj) => {
-      shipObj.coords.forEach((pos) => {
-        board1.ships.forEach((otherShipObj) => {
-          otherShipObj.coords.forEach((otherPos) => {
-            expect(board1.getAdjSquares(pos).has(otherPos)).toBeFalsy();
-          });
-        });
-      });
-    });
+    // Compare each position lists for each ship against each other's adjacent squares
 
-    board2.ships.forEach((shipObj) => {
-      shipObj.coords.forEach((pos) => {
-        board2.ships.forEach((otherShipObj) => {
-          otherShipObj.coords.forEach((otherPos) => {
-            expect(board2.getAdjSquares(pos).has(otherPos)).toBeFalsy();
+    const ships1 = [...board1.ships].map(obj => [...obj.coords]),
+    ships2 = [...board2.ships].map(obj => [...obj.coords]);
+
+    for (let i = 0; i < ships1.length; i++) {
+      const list = ships1.filter(l => l !== ships1[i]);
+
+      list.forEach((innerList) => {
+        ships1[i].forEach(pos => {
+          const adjSquares = [...board1.getAdjSquares(pos)].map(
+            (obj) => obj.square
+          );
+          
+          adjSquares.forEach(square => {
+            expect(innerList.includes(square)).toBeFalsy();
           });
         });
       });
-    });
+    }
+
+    for (let i = 0; i < ships2.length; i++) {
+      const list = ships2.filter(l => l !== ships2[i]);
+
+      list.forEach((innerList) => {
+        ships2[i].forEach(pos => {
+          const adjSquares = [...board1.getAdjSquares(pos)].map(
+            (obj) => obj.square
+          );
+
+          adjSquares.forEach(square => {
+            expect(innerList.includes(square)).toBeFalsy();
+          });
+        });
+      });
+    }
   });
   
 });
