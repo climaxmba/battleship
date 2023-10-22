@@ -43,7 +43,8 @@ describe("GameBoard", () => {
   let board1, board2;
 
   beforeEach(() => {
-    board1, (board2 = new GameBoard());
+    board1 = new GameBoard();
+    board2 = new GameBoard();
   });
 
   test("no overlaping ships", () => {
