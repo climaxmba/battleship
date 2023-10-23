@@ -107,5 +107,22 @@ describe("GameBoard", () => {
       });
     }
   });
+
+  test('records attacks', () => {
+    for (let x = 0; x < 10; x++) {
+      for (let y = 0; y < 10; y++) {
+        const pos = `${x},${y}`;
+
+        board1.receiveAttack(pos);
+        board2.receiveAttack(pos);
+
+        const res1 = board1.missedAttacks.has(pos) || ![...board1.ships].map(obj => [...obj.hitCoords]).every(list => !list.includes(pos));
+        const res2 = board2.missedAttacks.has(pos) || ![...board2.ships].map(obj => [...obj.hitCoords]).every(list => !list.includes(pos));
+        const res3 = board3.missedAttacks.has(pos);
+
+        expect(res1 && res2 && !res3).toBeTruthy();
+      }
+    }
+  });
   
 });
