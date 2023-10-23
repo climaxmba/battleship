@@ -124,5 +124,17 @@ describe("GameBoard", () => {
       }
     }
   });
+
+  test('all ships are sunk after attacking all squares', () => {
+    for (let x = 0; x < 10; x++) {
+      for (let y = 0; y < 10; y++) {
+        const pos = `${x},${y}`;
+        board1.receiveAttack(pos);
+        board2.receiveAttack(pos);
+      }
+    }
+    expect([...board1.ships].map(shipObj => shipObj.ship.isSunk()).every(val => val === true)).toBeTruthy();
+    expect([...board2.ships].map(shipObj => shipObj.ship.isSunk()).every(val => val === true)).toBeTruthy();
+  });
   
 });
