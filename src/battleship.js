@@ -37,7 +37,7 @@ class GameBoard {
   }
 
   addSquare(square) {
-    this.board.set(square, {square, adjSquares: new Set()});
+    this.board.set(square, { square, adjSquares: new Set() });
   }
 
   connectSquare(square1, square2) {
@@ -91,7 +91,11 @@ class GameBoard {
     this.#addShip(new Ship(1));
   }
   #addShip(ship, isVertical = false) {
-    this.ships.add({ ship, coords: this.#createShipCoords(ship, isVertical), hitCoords: new Set() });
+    this.ships.add({
+      ship,
+      coords: this.#createShipCoords(ship, isVertical),
+      hitCoords: new Set(),
+    });
   }
   #createShipCoords(ship, isVertical) {
     const x = Math.floor(Math.random() * 10),
@@ -121,8 +125,10 @@ class GameBoard {
   #isValidPos(pos) {
     if (!this.board.has(pos)) return false;
 
-    const adjPos = [...this.board.get(pos).adjSquares].map(obj => obj.square);
-    const list = [...this.ships].flatMap(obj => [...obj.coords]);
+    const list = [...this.ships].flatMap((obj) => [...obj.coords]);
+    if (list.includes(pos)) return false;
+
+    const adjPos = [...this.board.get(pos).adjSquares].map((obj) => obj.square);
 
     for (let i = 0; i < list.length; i++) {
       if (adjPos.includes(list[i])) return false;
