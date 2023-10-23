@@ -15,14 +15,25 @@ class Ship {
 }
 
 class GameBoard {
-  board;
-  ships;
+  board = new Map();
+  ships = new Set();
+  missedAttacks = new Set();
 
   constructor(addRandomShips = true) {
-    this.board = new Map();
-    this.ships = new Set();
     this.#initBoard();
     if (addRandomShips) this.#addShips();
+  }
+
+  receiveAttack(square) {
+    for (const shipObj of this.ships) {
+      if (shipObj.coords.has(square)) {
+        shipObj.hitCoords.add(square);
+        shipObj.ship.hit();
+        return;
+      }
+    }
+
+    this.missedAttacks.add(square);
   }
 
   addSquare(square) {
@@ -80,7 +91,7 @@ class GameBoard {
     this.#addShip(new Ship(1));
   }
   #addShip(ship, isVertical = false) {
-    this.ships.add({ ship, coords: this.#createShipCoords(ship, isVertical) });
+    this.ships.add({ ship, coords: this.#createShipCoords(ship, isVertical), hitCoords: new Set() });
   }
   #createShipCoords(ship, isVertical) {
     const x = Math.floor(Math.random() * 10),
