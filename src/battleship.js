@@ -55,6 +55,11 @@ class GameBoard {
     return this.board.get(square1).adjSquares.has(square2);
   }
 
+  areAllSunk() {
+    if (!this.ships.size) return null;
+    return [...this.ships].map(shipObj => shipObj.ship.isSunk()).every(val => val === true);
+  }
+
   #initBoard() {
     // Add squares
     for (let i = 0; i < 10; i++) {
