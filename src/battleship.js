@@ -57,7 +57,9 @@ class GameBoard {
 
   areAllSunk() {
     if (!this.ships.size) return null;
-    return [...this.ships].map(shipObj => shipObj.ship.isSunk()).every(val => val === true);
+    return [...this.ships]
+      .map((shipObj) => shipObj.ship.isSunk())
+      .every((val) => val === true);
   }
 
   #initBoard() {
@@ -142,4 +144,23 @@ class GameBoard {
   }
 }
 
-export { Ship, GameBoard };
+class Player {
+  name;
+  board;
+
+  constructor(name, isComputer = false) {
+    this.name = name;
+    this.isComputer = isComputer;
+    if (isComputer) this.board = new GameBoard();
+  }
+
+  addShip(ship, coords) {
+    this.board.ships.add({
+      ship,
+      coords,
+      hitCoords: new Set(),
+    });
+  }
+}
+
+export { Ship, GameBoard, Player };
