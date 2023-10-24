@@ -69,7 +69,7 @@ describe("GameBoard", () => {
     expect(positionList2.length === new Set(positionList2).size).toBeTruthy();
   });
 
-  test("ships are not too close to each other", () => {
+  test("places ships far enough from each other", () => {
     // Compare each position lists for each ship against each other's adjacent squares
 
     const ships1 = [...board1.ships].map(obj => [...obj.coords]),
