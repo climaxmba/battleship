@@ -133,8 +133,9 @@ describe("GameBoard", () => {
         board2.receiveAttack(pos);
       }
     }
-    expect([...board1.ships].map(shipObj => shipObj.ship.isSunk()).every(val => val === true)).toBeTruthy();
-    expect([...board2.ships].map(shipObj => shipObj.ship.isSunk()).every(val => val === true)).toBeTruthy();
+    expect(board1.areAllSunk()).toBeTruthy();
+    expect(board2.areAllSunk()).toBeTruthy();
+    expect(board3.areAllSunk()).toBe(null); // Empty ships
   });
   
 });
