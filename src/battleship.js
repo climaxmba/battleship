@@ -113,14 +113,14 @@ class GameBoard {
     for (let i = 0; i < ship.length; i++) {
       if (isVertical) {
         const pos = `${x},${y + i}`;
-        if (this.#isValidPos(pos)) {
+        if (this.isValidPos(pos)) {
           coordsList.add(pos);
           continue;
         }
         return this.#createShipCoords(ship, isVertical);
       } else {
         const pos = `${x + i},${y}`;
-        if (this.#isValidPos(pos)) {
+        if (this.isValidPos(pos)) {
           coordsList.add(pos);
           continue;
         }
@@ -129,7 +129,8 @@ class GameBoard {
     }
     return coordsList;
   }
-  #isValidPos(pos) {
+  
+  isValidPos(pos) {
     if (!this.board.has(pos)) return false;
 
     const list = [...this.ships].flatMap((obj) => [...obj.coords]);
