@@ -1,4 +1,4 @@
-import { GameBoard, Ship } from "../src/battleship";
+import { GameBoard, Ship, Player } from "../src/battleship";
 
 describe("Ship", () => {
   let ship1, ship2, ship3;
@@ -50,7 +50,7 @@ describe("GameBoard", () => {
     board3 = new GameBoard(false);
   });
 
-  test('adds ships by default', () => {
+  test("adds ships by default", () => {
     expect(board1.ships.size && board2.ships.size).toBeTruthy();
     expect(board3.ships.size).toBeFalsy();
   });
@@ -72,19 +72,19 @@ describe("GameBoard", () => {
   test("places ships far enough from each other", () => {
     // Compare each position lists for each ship against each other's adjacent squares
 
-    const ships1 = [...board1.ships].map(obj => [...obj.coords]),
-    ships2 = [...board2.ships].map(obj => [...obj.coords]);
+    const ships1 = [...board1.ships].map((obj) => [...obj.coords]),
+      ships2 = [...board2.ships].map((obj) => [...obj.coords]);
 
     for (let i = 0; i < ships1.length; i++) {
-      const list = ships1.filter(l => l !== ships1[i]);
+      const list = ships1.filter((l) => l !== ships1[i]);
 
       list.forEach((innerList) => {
-        ships1[i].forEach(pos => {
+        ships1[i].forEach((pos) => {
           const adjSquares = [...board1.getAdjSquares(pos)].map(
             (obj) => obj.square
           );
-          
-          adjSquares.forEach(square => {
+
+          adjSquares.forEach((square) => {
             expect(innerList.includes(square)).toBeFalsy();
           });
         });
@@ -92,15 +92,15 @@ describe("GameBoard", () => {
     }
 
     for (let i = 0; i < ships2.length; i++) {
-      const list = ships2.filter(l => l !== ships2[i]);
+      const list = ships2.filter((l) => l !== ships2[i]);
 
       list.forEach((innerList) => {
-        ships2[i].forEach(pos => {
+        ships2[i].forEach((pos) => {
           const adjSquares = [...board1.getAdjSquares(pos)].map(
             (obj) => obj.square
           );
 
-          adjSquares.forEach(square => {
+          adjSquares.forEach((square) => {
             expect(innerList.includes(square)).toBeFalsy();
           });
         });
@@ -108,7 +108,7 @@ describe("GameBoard", () => {
     }
   });
 
-  test('records attacks', () => {
+  test("records attacks", () => {
     for (let x = 0; x < 10; x++) {
       for (let y = 0; y < 10; y++) {
         const pos = `${x},${y}`;
@@ -116,8 +116,16 @@ describe("GameBoard", () => {
         board1.receiveAttack(pos);
         board2.receiveAttack(pos);
 
-        const res1 = board1.missedAttacks.has(pos) || ![...board1.ships].map(obj => [...obj.hitCoords]).every(list => !list.includes(pos));
-        const res2 = board2.missedAttacks.has(pos) || ![...board2.ships].map(obj => [...obj.hitCoords]).every(list => !list.includes(pos));
+        const res1 =
+          board1.missedAttacks.has(pos) ||
+          ![...board1.ships]
+            .map((obj) => [...obj.hitCoords])
+            .every((list) => !list.includes(pos));
+        const res2 =
+          board2.missedAttacks.has(pos) ||
+          ![...board2.ships]
+            .map((obj) => [...obj.hitCoords])
+            .every((list) => !list.includes(pos));
         const res3 = board3.missedAttacks.has(pos);
 
         expect(res1 && res2 && !res3).toBeTruthy();
@@ -125,7 +133,7 @@ describe("GameBoard", () => {
     }
   });
 
-  test('all ships are sunk after attacking all squares', () => {
+  test("all ships are sunk after attacking all squares", () => {
     for (let x = 0; x < 10; x++) {
       for (let y = 0; y < 10; y++) {
         const pos = `${x},${y}`;
@@ -137,5 +145,23 @@ describe("GameBoard", () => {
     expect(board2.areAllSunk()).toBeTruthy();
     expect(board3.areAllSunk()).toBe(null); // Empty ships
   });
-  
+});
+
+describe("Player", () => {
+  let player1 = new Player("Alan"),
+    player2 = new Player("Computer", true);
+
+  beforeEach(() => {
+    player1 = new Player("Alan");
+    player2 = new Player("Computer", true);
+  });
+
+  test('refuses invalid squares for ship', () => {
+    player1.addShip(["0,0", "0,1", "0,2"]);
+
+    expect(player1.addShip(["2,2", "2,3", "2,4", "2,5"])).toBeTruthy();
+    expect(player1.addShip(["0,0"])).toBeFalsy();
+    expect(player1.addShip(["2,5", "2,6"])).toBeFalsy();
+    expect(player1.addShip(["3,4", "4,5"])).toBeFalsy();
+  });
 });
