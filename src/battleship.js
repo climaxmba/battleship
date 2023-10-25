@@ -129,7 +129,7 @@ class GameBoard {
     }
     return coordsList;
   }
-  
+
   isValidPos(pos) {
     if (!this.board.has(pos)) return false;
 
@@ -147,20 +147,61 @@ class GameBoard {
 
 class Player {
   name;
-  board;
+  gameBoard;
 
   constructor(name, isComputer = false) {
     this.name = name;
     this.isComputer = isComputer;
-    if (isComputer) this.board = new GameBoard();
+    if (isComputer) {
+      this.gameBoard = new GameBoard();
+    } else {
+      this.gameBoard = new GameBoard(false);
+    }
   }
 
-  addShip(ship, coords) {
-    this.board.ships.add({
-      ship,
-      coords,
-      hitCoords: new Set(),
-    });
+  addShip(area) {
+    if (this.#isValidArea(area)) {
+      this.gameBoard.ships.add({
+        ship: new Ship(area.length),
+        coords: new Set(area),
+        hitCoords: new Set(),
+      });
+      return true;
+    } else {
+      return false;
+    }
+  }
+  #isValidArea(area) {
+    // Verify that all coordinates in area are adjacent...
+    // ...and not diagonal
+    for (let i = 0; i < area.length; i++) {
+      if (area[i + 1]) {
+        const currPos = area[i].split(","),
+          nextPos = area[i + 1].split(",");
+        if (
+          !(
+            parseInt(currPos[0]) + 1 == nextPos[0] ||
+            parseInt(currPos[0]) - 1 == nextPos[0] ||
+            parseInt(currPos[0]) + 1 == nextPos[1] ||
+            parseInt(currPos[0]) - 1 == nextPos[1] ||
+            parseInt(currPos[1]) + 1 == nextPos[0] ||
+            parseInt(currPos[1]) - 1 == nextPos[0] ||
+            parseInt(currPos[1]) + 1 == nextPos[1] ||
+            parseInt(currPos[1]) - 1 == nextPos[1]
+          ) ||
+          [parseInt(currPos[0]) + 1, parseInt(currPos[1]) + 1].toString() ===
+            area[i + 1] ||
+          [parseInt(currPos[0]) - 1, parseInt(currPos[1]) - 1].toString() ===
+            area[i + 1] ||
+          [parseInt(currPos[0]) + 1, parseInt(currPos[1]) - 1].toString() ===
+            area[i + 1] ||
+          [parseInt(currPos[0]) - 1, parseInt(currPos[1]) + 1].toString() ===
+            area[i + 1]
+        )
+          return false;
+      }
+    }
+    return area.every(this.gameBoard.isValidPos.bind(this.gameBoard));
   }
 }
 

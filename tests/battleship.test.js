@@ -162,6 +162,8 @@ describe("Player", () => {
     expect(player1.addShip(["2,2", "2,3", "2,4", "2,5"])).toBeTruthy();
     expect(player1.addShip(["0,0"])).toBeFalsy();
     expect(player1.addShip(["2,5", "2,6"])).toBeFalsy();
-    expect(player1.addShip(["3,4", "4,5"])).toBeFalsy();
+    expect(player1.addShip(["9,9", "4,5"])).toBeFalsy();
+    expect(player1.addShip(["9,9", "8,8"])).toBeFalsy();
+    expect(player1.addShip(["9,9", "9,8"])).toBeTruthy();
   });
 });
