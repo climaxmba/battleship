@@ -1,4 +1,4 @@
-import { GameBoard, Ship, Player } from "../src/battleship";
+import { GameBoard, Ship, Player } from "../src/modules/battleship";
 
 describe("Ship", () => {
   let ship1, ship2, ship3;
