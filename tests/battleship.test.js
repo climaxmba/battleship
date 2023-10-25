@@ -9,7 +9,7 @@ describe("Ship", () => {
     ship3 = new Ship(3);
   });
 
-  test("accurate length property", () => {
+  test("has accurate length property", () => {
     expect(ship1.length).toBe(1);
     expect(ship2.length).toBe(2);
     expect(ship3.length).toBe(3);
@@ -25,7 +25,7 @@ describe("Ship", () => {
     expect(ship3.hits).toBe(0);
   });
 
-  test("sinks only when hits equals length", () => {
+  test("sinks when hits equals length", () => {
     expect(ship1.isSunk() && ship2.isSunk() && ship3.isSunk()).toBeFalsy();
     ship1.hit();
     expect(ship1.isSunk()).toBeTruthy();
@@ -55,7 +55,7 @@ describe("GameBoard", () => {
     expect(board3.ships.size).toBeFalsy();
   });
 
-  test("no overlaping ships", () => {
+  test("has no overlaping ships", () => {
     const positionList1 = [],
       positionList2 = [];
     board1.ships.forEach((shipObj) => {
@@ -156,7 +156,7 @@ describe("Player", () => {
     player2 = new Player("Computer", true);
   });
 
-  test('refuses invalid squares for ship', () => {
+  test('accepts valid ship area', () => {
     player1.addShip(["0,0", "0,1", "0,2"]);
 
     expect(player1.addShip(["2,2", "2,3", "2,4", "2,5"])).toBeTruthy();
