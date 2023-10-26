@@ -62,6 +62,16 @@ class GameBoard {
       .every((val) => val === true);
   }
 
+  getAvailableSquares() {
+    const boardSquares = [...this.board.keys()],
+      shipPosAttacked = [...this.ships].map((obj) => obj.hitCoords);
+    const squareSet = boardSquares.filter(
+      (square) => !(this.missedAttacks.has(square) || shipPosAttacked.includes(square))
+    );
+
+    return [...squareSet];
+  }
+
   #initBoard() {
     // Add squares
     for (let i = 0; i < 10; i++) {
@@ -97,7 +107,7 @@ class GameBoard {
     this.#addShip(new Ship(1));
     this.#addShip(new Ship(1));
   }
-  #getRandomBool() {;
+  #getRandomBool() {
     return Math.floor(Math.random() * 2) === 1 ? true : false;
   }
   #addShip(ship, isVertical = false) {
@@ -205,6 +215,28 @@ class Player {
       }
     }
     return area.every(this.gameBoard.isValidPos.bind(this.gameBoard));
+  }
+
+  randomSquare(board) {
+    const square = `${Math.floor(Math.random() * 10)},${Math.floor(
+      Math.random() * 10
+    )}`;
+    while (board.missedAttacks.has(square)) {
+      square = `${Math.floor(Math.random() * 10)},${Math.floor(
+        Math.random() * 10
+      )}`;
+    }
+    return square;
+  }
+
+  async play(board) {
+    if (this.isComputer) {
+      return Promise.resolve(this.randomSquare(board));
+    } else {
+      // pubSub unlock board and wait for user to play
+      // lock board
+      return Promise.resolve(this.randomSquare(board));
+    }
   }
 }
 

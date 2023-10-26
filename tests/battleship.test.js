@@ -1,4 +1,9 @@
-import { GameBoard, Ship, Player, validateAreas } from "../src/modules/battleship";
+import {
+  GameBoard,
+  Ship,
+  Player,
+  validateAreas,
+} from "../src/modules/battleship";
 
 describe("Ship", () => {
   let ship1, ship2, ship3;
@@ -145,12 +150,25 @@ describe("GameBoard", () => {
     expect(board2.areAllSunk()).toBeTruthy();
     expect(board3.areAllSunk()).toBe(null); // Empty ships
   });
+
+  test("can get available squares", () => {
+    board1.receiveAttack("0,0");
+    board1.receiveAttack("9,9");
+
+    expect(
+      board1.getAvailableSquares().includes("9,9") &&
+        board1.getAvailableSquares().includes("0,0")
+    ).toBeFalsy();
+
+    expect(board2.getAvailableSquares().length).toEqual(100);
+    expect(board3.getAvailableSquares().includes("0,0")).toBeTruthy();
+  });
 });
 
 describe("Player", () => {
   let player = new Player("Alan");
 
-  test('accepts valid ship area', () => {
+  test("accepts only valid ship area", () => {
     player.addShip(["0,0", "0,1", "0,2"]);
 
     expect(player.addShip(["2,2", "2,3", "2,4", "2,5"])).toBeTruthy();
@@ -162,49 +180,59 @@ describe("Player", () => {
   });
 });
 
-describe('validateAreas', () => {
-  test('only returns true for a valid areas list', () => {
-    expect(validateAreas([
-      ["0,0", "0,1", "0,2", "0,3"],
-      ["2,0", "3,0", "4,0"],
-      ["2,2", "3,2", "4,2"],
-      ["0,5", "0,6"],
-      ["0,8", "0,9"],
-      ["9,9", "9,8"],
-      ["7,7"],
-      ["5,5"],
-      ["9,0"],
-      ["8,2"]
-    ])).toBeTruthy();
+describe("validateAreas", () => {
+  test("only returns true for a valid areas list", () => {
+    expect(
+      validateAreas([
+        ["0,0", "0,1", "0,2", "0,3"],
+        ["2,0", "3,0", "4,0"],
+        ["2,2", "3,2", "4,2"],
+        ["0,5", "0,6"],
+        ["0,8", "0,9"],
+        ["9,9", "9,8"],
+        ["7,7"],
+        ["5,5"],
+        ["9,0"],
+        ["8,2"],
+      ])
+    ).toBeTruthy();
 
-    expect(validateAreas([
-      ["2,9", "3,9", "4,9", "5,9"],
-      ["2,3", "2,4", "2,5"],
-      ["2,0", "3,0", "4,0"],
-      ["0,1", "0,2"],
-      ["0,4", "0,5"],
-      ["4,2", "4,3"],
-      ["6,1"],
-      ["8,4"]
-    ])).toBeTruthy();
-    
-    expect(validateAreas([
-      ["2,9", "3,9", "4,9", "5,9"],
-      ["2,3", "2,4", "2,5"],
-      ["2,0", "3,0", "5,0"],
-    ])).toBeFalsy();
+    expect(
+      validateAreas([
+        ["2,9", "3,9", "4,9", "5,9"],
+        ["2,3", "2,4", "2,5"],
+        ["2,0", "3,0", "4,0"],
+        ["0,1", "0,2"],
+        ["0,4", "0,5"],
+        ["4,2", "4,3"],
+        ["6,1"],
+        ["8,4"],
+      ])
+    ).toBeTruthy();
 
-    expect(validateAreas([
-      ["0,1", "0,2"],
-      ["0,4", "0,5"],
-      ["4,2", "4,3"],
-      ["9,9"],
-      ["5,5"],
-      ["5,5"]
-    ])).toBeFalsy();
-    expect(validateAreas([
-      ["5,5", "6,6"],
-      ["3,3", "3,3"]
-    ])).toBeFalsy();
+    expect(
+      validateAreas([
+        ["2,9", "3,9", "4,9", "5,9"],
+        ["2,3", "2,4", "2,5"],
+        ["2,0", "3,0", "5,0"],
+      ])
+    ).toBeFalsy();
+
+    expect(
+      validateAreas([
+        ["0,1", "0,2"],
+        ["0,4", "0,5"],
+        ["4,2", "4,3"],
+        ["9,9"],
+        ["5,5"],
+        ["5,5"],
+      ])
+    ).toBeFalsy();
+    expect(
+      validateAreas([
+        ["5,5", "6,6"],
+        ["3,3", "3,3"],
+      ])
+    ).toBeFalsy();
   });
 });
