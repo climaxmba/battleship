@@ -96,16 +96,11 @@ class GameBoard {
     }
   }
   #addShips() {
+    this.#addShip(new Ship(5), this.#getRandomBool());
     this.#addShip(new Ship(4), this.#getRandomBool());
     this.#addShip(new Ship(3), this.#getRandomBool());
     this.#addShip(new Ship(3), this.#getRandomBool());
     this.#addShip(new Ship(2), this.#getRandomBool());
-    this.#addShip(new Ship(2), this.#getRandomBool());
-    this.#addShip(new Ship(2), this.#getRandomBool());
-    this.#addShip(new Ship(1));
-    this.#addShip(new Ship(1));
-    this.#addShip(new Ship(1));
-    this.#addShip(new Ship(1));
   }
   #getRandomBool() {
     return Math.floor(Math.random() * 2) === 1 ? true : false;
