@@ -208,4 +208,16 @@ class Player {
   }
 }
 
-export { Ship, GameBoard, Player };
+function validateAreas(areasList) {
+  const p = new Player("", false);
+  try {
+    areasList.forEach((area) => {
+      if (!p.addShip(area)) throw new Error();
+    });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export { Ship, GameBoard, Player, validateAreas };
