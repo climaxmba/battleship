@@ -16,4 +16,9 @@ const pubSub = (function () {
   return { subscribe, unSubscribe, publish };
 })();
 
+const events = {
+  playerFormSubmitted: "playerFormSubmitted",
+  gameOver: "gameOver"
+}
+
 export default pubSub;
