@@ -156,7 +156,7 @@ describe("GameBoard", () => {
     board1.receiveAttack("9,9");
 
     expect(
-      board1.getAvailableSquares().includes("9,9") &&
+      board1.getAvailableSquares().includes("9,9") ||
         board1.getAvailableSquares().includes("0,0")
     ).toBeFalsy();
 

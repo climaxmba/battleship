@@ -64,7 +64,7 @@ class GameBoard {
 
   getAvailableSquares() {
     const boardSquares = [...this.board.keys()],
-      shipPosAttacked = [...this.ships].map((obj) => obj.hitCoords);
+      shipPosAttacked = [...this.ships].flatMap((obj) => [...obj.hitCoords]);
     const squareSet = boardSquares.filter(
       (square) => !(this.missedAttacks.has(square) || shipPosAttacked.includes(square))
     );
