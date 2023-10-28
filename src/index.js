@@ -1,6 +1,7 @@
 import pubSub from "./modules/pubsub";
 import { Player } from "./modules/battleship";
 import "./display";
+import "./assets/style.css";
 
 (() => {
   let player1 = new Player(""),
