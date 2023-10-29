@@ -16,7 +16,7 @@ const pubSub = (function () {
   return { subscribe, unSubscribe, publish };
 })();
 
-const events = {
+export const events = {
   playerFormSubmitted: "playerFormSubmitted",
   gameOver: "gameOver"
 }
