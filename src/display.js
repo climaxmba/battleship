@@ -37,6 +37,7 @@ const customizeModal = (() => {
   }
 
   function revealSquaresValidity(e) {
+    e.preventDefault();
     if (e.target === e.currentTarget) return;
     _clearBoardValidity();
 
@@ -99,6 +100,15 @@ const customizeModal = (() => {
       );
   }
 
+  function exitModal() {
+    if (_shipAreas.length === 5) {
+      dom.dialog.close();
+      // Emit event
+      pubSub.publish(events.playerFormSubmitted, _shipAreas);
+    }
+    
+  }
+
   return {
     setDraggingLength,
     switchOrientation,
@@ -106,6 +116,7 @@ const customizeModal = (() => {
     revealSquaresValidity,
     dropShip,
     randomizeBoard,
+    exitModal
   };
 })();
 
@@ -159,11 +170,9 @@ const customizeModal = (() => {
         case "rotate":
           return customizeModal.switchOrientation();
         case "random":
-          // Randomize boards
           return customizeModal.randomizeBoard();
         case "start":
-          // validate board & start game
-          return dom.dialog.close();
+          return customizeModal.exitModal();
       }
     });
   }
