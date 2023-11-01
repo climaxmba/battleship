@@ -22,15 +22,23 @@ const customizeModal = (() => {
     _draggingLength = length;
   }
 
-  function _clearSquaresVaidity() {
+  function _clearBoard() {
     dom.dialogBoard.childNodes.forEach(
       (child) => (child.className = "squares")
     );
   }
 
+  function _clearBoardValidity() {
+    const validitySquares = dom.dialogBoard.querySelectorAll("span.valid, span.invalid");
+    validitySquares.forEach(square => {
+      square.classList.remove("valid");
+      square.classList.remove("invalid");
+    })
+  }
+
   function revealSquaresValidity(e) {
     if (e.target === e.currentTarget) return;
-    _clearSquaresVaidity();
+    _clearBoardValidity();
 
     const areasList = [],
       altAreasList = [],
@@ -73,13 +81,19 @@ const customizeModal = (() => {
 
   function randomizeBoard() {
     _board = new GameBoard();
-    _shipAreas = [..._board.ships].map(shipObj => [...shipObj.coords])
+    _shipAreas = [..._board.ships].map((shipObj) => [...shipObj.coords]);
     _updateBoard();
   }
 
   function _updateBoard() {
-    _clearSquaresVaidity()
-    _shipAreas.flatMap(arr => arr).forEach(square => document.querySelector(`[data-square-index='${square}']`).classList.add("ship-pos"));
+    _clearBoard();
+    _shipAreas
+      .flatMap((arr) => arr)
+      .forEach((square) =>
+        document
+          .querySelector(`[data-square-index='${square}']`)
+          .classList.add("ship-pos")
+      );
   }
 
   return {
@@ -88,7 +102,7 @@ const customizeModal = (() => {
     isOrientationVertical,
     revealSquaresValidity,
     dropShip,
-    randomizeBoard
+    randomizeBoard,
   };
 })();
 
@@ -127,10 +141,13 @@ const customizeModal = (() => {
   }
 
   function addEvents() {
-    dom.shipsContr.addEventListener("dragstart", (e) => 
+    dom.shipsContr.addEventListener("dragstart", (e) =>
       customizeModal.setDraggingLength(e.target.children.length)
     );
-    dom.dialogBoard.addEventListener("dragover", customizeModal.revealSquaresValidity);
+    dom.dialogBoard.addEventListener(
+      "dragover",
+      customizeModal.revealSquaresValidity
+    );
 
     dom.shipsContr.addEventListener("dragend", customizeModal.dropShip);
 
