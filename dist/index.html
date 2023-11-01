@@ -12,7 +12,7 @@
         <div id="customize-contr">
             <h2>Customize your board!</h2>
             <div id="customize">
-                <div id="ships-contr" data-js-id="shipsContr">
+                <div id="ships-contr" data-isvertical="false" data-js-id="shipsContr">
                     <div draggable="true"><span class="squares"></span><span class="squares"></span><span class="squares"></span><span class="squares"></span><span class="squares"></span></div>
                     <div draggable="true"><span class="squares"></span><span class="squares"></span><span class="squares"></span><span class="squares"></span></div>
                     <div draggable="true"><span class="squares"></span><span class="squares"></span><span class="squares"></span></div>
@@ -23,9 +23,9 @@
                 <div class="board-contr" data-js-id="dialogBoard"></div>
             </div>
             <div id="customize-ctrl-contr" data-js-id="customizeBtns">
-                <span class="customize-ctrls">Rotate</span>
-                <span class="customize-ctrls">Random</span>
-                <span class="customizeBtns">Start</span>
+                <span class="customize-ctrls" data-action="rotate">Rotate</span>
+                <span class="customize-ctrls" data-action="random">Random</span>
+                <span class="customizeBtns" data-action="start">Start</span>
             </div>
         </div>
     </dialog>
