@@ -55,14 +55,14 @@ const customizeModal = (() => {
         : altAreasList.push(`${parseInt(square[0]) - i},${square[2]}`);
     }
 
-    if (validateAreas([areasList])) {
+    if (validateAreas([..._shipAreas, areasList])) {
       areasList.forEach((pos) =>
         document
           .querySelector(`[data-square-index='${pos}']`)
           .classList.add("valid")
       );
       _currShipArea = areasList;
-    } else if (validateAreas([altAreasList])) {
+    } else if (validateAreas([..._shipAreas, altAreasList])) {
       altAreasList.forEach((pos) =>
         document
           .querySelector(`[data-square-index='${pos}']`)
@@ -72,9 +72,9 @@ const customizeModal = (() => {
     }
   }
 
-  function dropShip() {
+  function dropShip(e) {
     // Remove dropped ship from container
-    // Drop in board
+    e.target.remove();
     _shipAreas.push(_currShipArea);
     _updateBoard();
   }
