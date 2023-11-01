@@ -68,7 +68,18 @@ const customizeModal = (() => {
     // Remove dropped ship from container
     // Drop in board
     _shipAreas.push(_currShipArea);
-    console.log(_shipAreas);
+    _updateBoard();
+  }
+
+  function randomizeBoard() {
+    _board = new GameBoard();
+    _shipAreas = [..._board.ships].map(shipObj => [...shipObj.coords])
+    _updateBoard();
+  }
+
+  function _updateBoard() {
+    _clearSquaresVaidity()
+    _shipAreas.flatMap(arr => arr).forEach(square => document.querySelector(`[data-square-index='${square}']`).classList.add("ship-pos"));
   }
 
   return {
@@ -76,7 +87,8 @@ const customizeModal = (() => {
     switchOrientation,
     isOrientationVertical,
     revealSquaresValidity,
-    dropShip
+    dropShip,
+    randomizeBoard
   };
 })();
 
@@ -128,7 +140,7 @@ const customizeModal = (() => {
           return customizeModal.switchOrientation();
         case "random":
           // Randomize boards
-          return;
+          return customizeModal.randomizeBoard();
         case "start":
           // validate board & start game
           return dom.dialog.close();
