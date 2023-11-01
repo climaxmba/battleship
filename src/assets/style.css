@@ -33,11 +33,21 @@ dialog {
     gap: 1rem;
 }
 
+#customize-contr span.valid {
+    background-color: aquamarine;
+}
+
 #ships-contr {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     flex-wrap: wrap;
+}
+#ships-contr[data-isvertical="true"] {
+    flex-direction: row;
+}
+#ships-contr[data-isvertical="true"] > div {
+    grid-template: repeat(5, 25px) / 25px !important;
 }
 #ships-contr .squares {
     background-color: lightgrey;
