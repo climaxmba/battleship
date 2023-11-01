@@ -29,6 +29,7 @@ const customizeModal = (() => {
   }
 
   function revealSquaresValidity(e) {
+    if (e.target === e.currentTarget) return;
     _clearSquaresVaidity();
 
     const areasList = [],
