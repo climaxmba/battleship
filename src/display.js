@@ -69,14 +69,17 @@ const customizeModal = (() => {
           .classList.add("valid")
       );
       _currShipArea = altAreasList;
+    } else {
+      _currShipArea = [];
     }
   }
 
   function dropShip(e) {
-    // Remove dropped ship from container
-    e.target.remove();
-    _shipAreas.push(_currShipArea);
-    _updateBoard();
+    if (_currShipArea.length && (_shipAreas.length < 5)) {
+      e.target.remove();
+      _shipAreas.push(_currShipArea);
+      _updateBoard();
+    }
   }
 
   function randomizeBoard() {
