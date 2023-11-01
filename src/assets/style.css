@@ -36,6 +36,9 @@ dialog {
 #customize-contr span.valid {
     background-color: aquamarine;
 }
+#customize-contr span.ship-pos {
+    background-color: grey !important;
+}
 
 #ships-contr {
     display: flex;
