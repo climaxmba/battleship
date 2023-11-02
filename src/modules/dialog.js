@@ -76,9 +76,12 @@ const customizingModal = (() => {
     }
   
     function dropShip(e) {
+      _clearBoardValidity();
+      
       if (_currShipArea.length && (_shipAreas.length < 5)) {
         e.target.remove();
         _shipAreas.push(_currShipArea);
+        _currShipArea = [];
         _updateBoard();
       }
     }
