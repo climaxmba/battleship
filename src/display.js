@@ -2,7 +2,7 @@ import dom from "./modules/dom";
 import { GameBoard, validateAreas } from "./modules/battleship";
 import pubSub, { events } from "./modules/pubsub";
 
-const customizeModal = (() => {
+const customizingModal = (() => {
   let _draggingLength,
     _isVertical = false,
     _currShipArea = [],
@@ -103,7 +103,6 @@ const customizeModal = (() => {
   function exitModal() {
     if (_shipAreas.length === 5) {
       dom.dialog.close();
-      // Emit event
       pubSub.publish(events.playerBoardCustomized, _shipAreas);
     }
     
@@ -156,23 +155,23 @@ const customizeModal = (() => {
 
   function addEvents() {
     dom.shipsContr.addEventListener("dragstart", (e) =>
-      customizeModal.setDraggingLength(e.target.children.length)
+      customizingModal.setDraggingLength(e.target.children.length)
     );
     dom.dialogBoard.addEventListener(
       "dragover",
-      customizeModal.revealSquaresValidity
+      customizingModal.revealSquaresValidity
     );
 
-    dom.shipsContr.addEventListener("dragend", customizeModal.dropShip);
+    dom.shipsContr.addEventListener("dragend", customizingModal.dropShip);
 
     dom.customizeBtns.addEventListener("click", (e) => {
       switch (e.target.getAttribute("data-action")) {
         case "rotate":
-          return customizeModal.switchOrientation();
+          return customizingModal.switchOrientation();
         case "random":
-          return customizeModal.randomizeBoard();
+          return customizingModal.randomizeBoard();
         case "start":
-          return customizeModal.exitModal();
+          return customizingModal.exitModal();
       }
     });
   }
