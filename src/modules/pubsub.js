@@ -17,7 +17,7 @@ const pubSub = (function () {
 })();
 
 export const events = {
-  playerFormSubmitted: "playerFormSubmitted",
+  playerBoardCustomized: "playerBoardCustomized",
   gameOver: "gameOver"
 }
 

@@ -104,7 +104,7 @@ const customizeModal = (() => {
     if (_shipAreas.length === 5) {
       dom.dialog.close();
       // Emit event
-      pubSub.publish(events.playerFormSubmitted, _shipAreas);
+      pubSub.publish(events.playerBoardCustomized, _shipAreas);
     }
     
   }
