@@ -41,7 +41,7 @@ dialog {
     background-color: aquamarine;
 }
 #customize-contr span.ship-pos {
-    background-color: grey !important;
+    background-color: darkgrey !important;
 }
 
 #ships-contr {
@@ -49,34 +49,47 @@ dialog {
     flex-direction: column;
     gap: 1rem;
     flex-wrap: wrap;
+    align-items: flex-start;
 }
 #ships-contr[data-isvertical="true"] {
     flex-direction: row;
 }
 #ships-contr[data-isvertical="true"] > div {
-    grid-template: repeat(5, 25px) / 25px !important;
+    grid-template-columns: 25px;
 }
 #ships-contr .squares {
     background-color: lightgrey;
 }
 #ships-contr > div {
     display: grid;
-    grid-template: 25px / repeat(5, 25px);
+    grid-template-rows: 25px;
     border: 1px solid;
-    width: fit-content;
 }
-#ships-contr > div:first-child {
+#ship1 {
     grid-template-columns: repeat(5, 25px);
 }
-#ships-contr > div:nth-child(2) {
+#ship2 {
     grid-template-columns: repeat(4, 25px);
 }
-#ships-contr > div:nth-child(3),
-#ships-contr > div:nth-child(4) {
+#ship3,
+#ship4 {
     grid-template-columns: repeat(3, 25px);
 }
-#ships-contr > div:last-child {
+#ship5 {
     grid-template-columns: repeat(2, 25px);
+}
+#ships-contr[data-isvertical="true"] #ship1 {
+    grid-template-rows: repeat(5, 25px);
+}
+#ships-contr[data-isvertical="true"] #ship2 {
+    grid-template-rows: repeat(4, 25px);
+}
+#ships-contr[data-isvertical="true"] #ship3,
+#ships-contr[data-isvertical="true"] #ship4 {
+    grid-template-rows: repeat(3, 25px);
+}
+#ships-contr[data-isvertical="true"] #ship5 {
+    grid-template-rows: repeat(2, 25px);
 }
 .board-contr {
     display: grid;
