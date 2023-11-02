@@ -1,11 +1,15 @@
-import pubSub from "./modules/pubsub";
+import pubSub, { events } from "./modules/pubsub";
 import { Player } from "./modules/battleship";
-import "./display";
+import display from "./modules/display";
 import "./assets/style.css";
 
 (() => {
   let player1 = new Player(""),
     player2 = new Player("", true);
+
+  pubSub.subscribe(events.playerBoardCustomized, setPlayer);
+  display.initPage();
+  // startGameLoop();
 
   function setPlayer(areasList) {
     areasList.forEach(player1.addShip.bind(player1));
@@ -20,11 +24,11 @@ import "./assets/style.css";
     return null;
   }
 
-  async function gameLoop() {
-    const playQueue = [player1, player2];
+  async function startGameLoop() {
+    const turnsQueue = [player1, player2];
     while (true) {
-      const player = playQueue.shift(),
-        enemy = playQueue[0];
+      const player = turnsQueue.shift(),
+        enemy = turnsQueue[0];
       
       const pos = await player.play(enemy.gameBoard);
       enemy.gameBoard.receiveAttack(pos);
@@ -34,7 +38,7 @@ import "./assets/style.css";
         // pubSub winner
         return;
       } else {
-        playQueue.push(player);
+        turnsQueue.push(player);
       }
     }
   }
