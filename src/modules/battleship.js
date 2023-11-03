@@ -1,3 +1,5 @@
+import pubSub, { events } from "./pubsub";
+
 class Ship {
   length;
   hits = 0;
@@ -229,8 +231,8 @@ class Player {
     if (this.isComputer) {
       return Promise.resolve(this.randomSquare(board));
     } else {
-      // pubSub unlock board and wait for user to play
-      // lock board
+      // pubSub.subscribe(events.userPlayed, Promise.resolve);
+      // pubSub.unSubscribe(events.userPlayed, Promise.resolve)
       return Promise.resolve(this.randomSquare(board));
     }
   }

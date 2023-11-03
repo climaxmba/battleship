@@ -29,11 +29,13 @@ const customizingModal = (() => {
   }
 
   function _clearBoardValidity() {
-    const validitySquares = dom.dialogBoard.querySelectorAll("span.valid, span.invalid");
-    validitySquares.forEach(square => {
+    const validitySquares = dom.dialogBoard.querySelectorAll(
+      "span.valid, span.invalid"
+    );
+    validitySquares.forEach((square) => {
       square.classList.remove("valid");
       square.classList.remove("invalid");
-    })
+    });
   }
 
   function revealSquaresValidity(e) {
@@ -77,8 +79,8 @@ const customizingModal = (() => {
 
   function dropShip(e) {
     _clearBoardValidity();
-    
-    if (_currShipArea.length && (_shipAreas.length < 5)) {
+
+    if (_currShipArea.length && _shipAreas.length < 5) {
       e.target.remove();
       _shipAreas.push(_currShipArea);
       _currShipArea = [];
@@ -108,7 +110,6 @@ const customizingModal = (() => {
       dom.dialog.close();
       pubSub.publish(events.playerBoardCustomized, _shipAreas);
     }
-    
   }
 
   return {
@@ -118,8 +119,42 @@ const customizingModal = (() => {
     revealSquaresValidity,
     dropShip,
     randomizeBoard,
-    exitModal
+    exitModal,
   };
+})();
+
+const gameBoards = (() => {
+  function initBoards() {
+    pubSub.subscribe(events.initBoard, _updateBoards);
+  }
+
+  function _updateBoards({ board1, board2 }) {
+    console.log(board1, board2);
+    board1.missedAttacks.forEach(
+      _getIteratorCallback("missed", dom.playerBoard1)
+    );
+    [...board1.ships]
+      .flatMap((shipObj) => [...shipObj.coords])
+      .forEach(_getIteratorCallback("ship-pos", dom.playerBoard1));
+    [...board1.ships]
+      .flatMap((shipObj) => [...shipObj.hitCoords])
+      .forEach(_getIteratorCallback("hit", dom.playerBoard1));
+
+    board2.missedAttacks.forEach(
+      _getIteratorCallback("missed", dom.playerBoard2)
+    );
+    [...board2.ships]
+      .flatMap((shipObj) => [...shipObj.hitCoords])
+      .forEach(_getIteratorCallback("hit", dom.playerBoard2));
+  }
+
+  // Callback generator
+  function _getIteratorCallback(className, board) {
+    return (square) =>
+      board.querySelector(`[data-square-index='${square}']`).classList.add(className);
+  }
+
+  return { initBoards };
 })();
 
 const display = (() => {
@@ -146,7 +181,7 @@ const display = (() => {
     });
 
     dom.dialog.showModal();
-
+    gameBoards.initBoards();
     addEvents();
   }
 

@@ -18,7 +18,10 @@ const pubSub = (function () {
 
 export const events = {
   playerBoardCustomized: "playerBoardCustomized",
-  gameOver: "gameOver"
-}
+  initBoard: "initBoard",
+  gameOver: "gameOver",
+  usersTurn: "usersTurn",
+  userPlayed: "userPlayed"
+};
 
 export default pubSub;
