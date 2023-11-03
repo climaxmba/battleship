@@ -76,7 +76,6 @@ describe("GameBoard", () => {
 
   test("places ships far enough from each other", () => {
     // Compare each position lists for each ship against each other's adjacent squares
-
     const ships1 = [...board1.ships].map((obj) => [...obj.coords]),
       ships2 = [...board2.ships].map((obj) => [...obj.coords]);
 
@@ -111,6 +110,12 @@ describe("GameBoard", () => {
         });
       });
     }
+  });
+
+  test('returns true for ships attacked & false if missed', () => {
+    const shipAreas = [...board1.ships].flatMap(shipObj => [...shipObj.coords]);
+    shipAreas.forEach(pos => expect(board1.receiveAttack(pos)).toBeTruthy());
+    shipAreas.forEach(pos => expect(board3.receiveAttack(pos)).toBeFalsy());
   });
 
   test("records attacks", () => {

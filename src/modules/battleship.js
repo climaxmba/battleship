@@ -29,11 +29,12 @@ class GameBoard {
       if (shipObj.coords.has(square)) {
         shipObj.hitCoords.add(square);
         shipObj.ship.hit();
-        return;
+        return true;
       }
     }
 
     this.missedAttacks.add(square);
+    return false;
   }
 
   addSquare(square) {
