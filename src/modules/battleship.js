@@ -216,7 +216,7 @@ class Player {
   }
 
   randomSquare(board) {
-    const square = `${Math.floor(Math.random() * 10)},${Math.floor(
+    let square = `${Math.floor(Math.random() * 10)},${Math.floor(
       Math.random() * 10
     )}`;
     while (board.missedAttacks.has(square)) {
