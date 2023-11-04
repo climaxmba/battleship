@@ -215,11 +215,11 @@ class Player {
     return area.every(this.gameBoard.isValidPos.bind(this.gameBoard));
   }
 
-  randomSquare(board) {
+  randomSquare(board = new GameBoard()) {
     let square = `${Math.floor(Math.random() * 10)},${Math.floor(
       Math.random() * 10
     )}`;
-    while (board.missedAttacks.has(square)) {
+    while (board.missedAttacks.has(square) || [...board.ships].flatMap(shipObj => [...shipObj.hitCoords]).includes(square)) {
       square = `${Math.floor(Math.random() * 10)},${Math.floor(
         Math.random() * 10
       )}`;
