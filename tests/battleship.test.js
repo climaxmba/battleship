@@ -167,6 +167,9 @@ describe("GameBoard", () => {
 
     expect(board2.getAvailableSquares().length).toEqual(100);
     expect(board3.getAvailableSquares().includes("0,0")).toBeTruthy();
+
+    [...board2.ships].flatMap(shipObj => [...shipObj.coords]).forEach(pos => board2.receiveAttack(pos));
+    expect(board2.getAvailableSquares().length).toBeLessThan(100);
   });
 });
 
