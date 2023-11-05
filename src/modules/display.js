@@ -215,7 +215,7 @@ const display = (() => {
 
     dom.playerBoard2.addEventListener("click", (e) => {
       const square = e.target.getAttribute("data-square-index");
-      if (square) pubSub.publish(events.userPlayed, square);
+      if (square && e.target.className === "squares") pubSub.publish(events.userPlayed, square);
     });
   }
 
