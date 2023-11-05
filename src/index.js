@@ -9,10 +9,15 @@ import "./assets/style.css";
 
   pubSub.subscribe(events.playerBoardCustomized, setPlayer);
   display.initPage();
-  // startGameLoop();
+  startGameLoop();
+  // starts too early
 
   function setPlayer(areasList) {
     areasList.forEach(player1.addShip.bind(player1));
+    pubSub.publish(events.initBoard, {
+      board1: player1.gameBoard,
+      board2: player2.gameBoard,
+    });
   }
 
   function checkWin(p1 = player1, p2 = player2) {
@@ -30,15 +35,23 @@ import "./assets/style.css";
       const player = turnsQueue.shift(),
         enemy = turnsQueue[0];
       
-      const pos = await player.play(enemy.gameBoard);
-      enemy.gameBoard.receiveAttack(pos);
+      const pos = await player.play(enemy.gameBoard),
+      attackedShip = enemy.gameBoard.receiveAttack(pos);
+      pubSub.publish(events.boardsChanged, { board1: player1.gameBoard, board2: player2.gameBoard });
 
       const winner = checkWin();
       if (winner) {
         // pubSub winner
+        console.log(winner);
         return;
       } else {
-        turnsQueue.push(player);
+        if (attackedShip) {
+          // Play again
+          turnsQueue.pop();
+          turnsQueue.push(player, enemy);
+        } else {
+          turnsQueue.push(player);
+        }
       }
     }
   }

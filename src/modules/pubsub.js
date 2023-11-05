@@ -21,7 +21,8 @@ export const events = {
   initBoard: "initBoard",
   gameOver: "gameOver",
   usersTurn: "usersTurn",
-  userPlayed: "userPlayed"
+  userPlayed: "userPlayed",
+  boardsChanged: "boardsChanged"
 };
 
 export default pubSub;

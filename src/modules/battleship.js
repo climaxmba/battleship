@@ -229,11 +229,22 @@ class Player {
 
   async play(board) {
     if (this.isComputer) {
+      // Simulate delay
+      await new Promise((res) =>
+        setTimeout(() => {
+          res(true);
+        }, 500)
+      );
       return Promise.resolve(this.randomSquare(board));
     } else {
-      // pubSub.subscribe(events.userPlayed, Promise.resolve);
-      // pubSub.unSubscribe(events.userPlayed, Promise.resolve)
-      return Promise.resolve(this.randomSquare(board));
+      return new Promise((res) => {
+        pubSub.subscribe(events.userPlayed, handler);
+
+        function handler(square) {
+          res(square);
+          pubSub.unSubscribe(events.userPlayed, handler);
+        }
+      });
     }
   }
 }

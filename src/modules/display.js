@@ -126,10 +126,10 @@ const customizingModal = (() => {
 const gameBoards = (() => {
   function initBoards() {
     pubSub.subscribe(events.initBoard, _updateBoards);
+    pubSub.subscribe(events.boardsChanged, _updateBoards);
   }
 
   function _updateBoards({ board1, board2 }) {
-    console.log(board1, board2);
     board1.missedAttacks.forEach(
       _getIteratorCallback("missed", dom.playerBoard1)
     );
@@ -151,7 +151,9 @@ const gameBoards = (() => {
   // Callback generator
   function _getIteratorCallback(className, board) {
     return (square) =>
-      board.querySelector(`[data-square-index='${square}']`).classList.add(className);
+      board
+        .querySelector(`[data-square-index='${square}']`)
+        .classList.add(className);
   }
 
   return { initBoards };
@@ -209,6 +211,11 @@ const display = (() => {
         case "start":
           return customizingModal.exitModal();
       }
+    });
+
+    dom.playerBoard2.addEventListener("click", (e) => {
+      const square = e.target.getAttribute("data-square-index");
+      if (square) pubSub.publish(events.userPlayed, square);
     });
   }
 
