@@ -14,11 +14,15 @@ body {
     margin: 0;
 }
 
+#header {
+    padding: 1rem;
+    border-bottom: 1px solid;
+}
+
 #msg {
     color: white;
     background-color: black;
     padding: 0.5rem;
-    border-radius: 5px;
 }
 
 dialog {
@@ -115,8 +119,8 @@ dialog {
     border: 0.5px solid grey;
     position: relative;
 }
-.squares.ship-pos {
-    background-color: darkgrey !important;
+.squares.ship-pos:not(.hit) {
+    background-color: darkgrey;
 }
 .squares.hit {
     background-color: lightpink;
