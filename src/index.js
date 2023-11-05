@@ -8,9 +8,8 @@ import "./assets/style.css";
     player2 = new Player("", true);
 
   pubSub.subscribe(events.playerBoardCustomized, setPlayer);
+  pubSub.subscribe(events.initBoard, startGameLoop);
   display.initPage();
-  startGameLoop();
-  // starts too early
 
   function setPlayer(areasList) {
     areasList.forEach(player1.addShip.bind(player1));
