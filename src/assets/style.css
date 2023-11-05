@@ -1,3 +1,10 @@
+:root {
+    --missedbg: #e0e0e0;
+    --hitbg: lightpink;
+    --validbg: aquamarine;
+    --shipbg: darkgrey;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -35,6 +42,7 @@ dialog {
 
 #customize {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 1rem;
@@ -49,7 +57,7 @@ dialog {
 }
 
 #customize-contr span.valid {
-    background-color: aquamarine;
+    background-color: var(--validbg);
 }
 
 #ships-contr {
@@ -120,13 +128,13 @@ dialog {
     position: relative;
 }
 .squares.ship-pos:not(.hit) {
-    background-color: darkgrey;
+    background-color: var(--shipbg);
 }
 .squares.hit {
-    background-color: lightpink;
+    background-color: var(--hitbg);
 }
 .squares.missed {
-    background-color: lightgrey;
+    background-color: var(--missedbg);
 }
 .squares.missed::after {
     content: "";
@@ -142,7 +150,10 @@ dialog {
 
 #game-contr {
     display: flex;
+    flex-wrap: wrap;
     gap: 2rem;
+    align-items: center;
+    justify-content: center;
 }
 
 .players {
@@ -157,7 +168,8 @@ dialog {
 }
 
 footer {
-    padding: 1rem;
+    margin-top: 3rem;
+    padding: 2rem;
     gap: 0.5rem;
     background-color: black;
     color: white;
@@ -169,4 +181,34 @@ footer {
 
 footer a {
     color: lightgray;
+}
+
+@media (width <= 750px) {
+    #customize-contr {
+        width: 312px;
+    }
+    #ships-contr {
+        flex-direction: unset;
+    }
+    .players:first-child .board-contr {
+        height: 220px;
+        width: 220px;
+        grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+    }
+    .board-contr {
+        height: 280px;
+        width: 280px;
+        grid-template: repeat(10, 1fr) / repeat(10, 1fr) !important;
+    }
+    .players:first-child .squares.missed::after {
+        content: "";
+        background-color: black;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 3px;
+        width: 3px;
+        border-radius: 50%;
+    }
 }
