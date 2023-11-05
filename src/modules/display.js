@@ -215,11 +215,21 @@ const display = (() => {
 
     dom.playerBoard2.addEventListener("click", (e) => {
       const square = e.target.getAttribute("data-square-index");
-      if (square && e.target.className === "squares") pubSub.publish(events.userPlayed, square);
+      if (square && e.target.className === "squares")
+        pubSub.publish(events.userPlayed, square);
     });
   }
 
-  return { initPage };
+  function writeMessage(msg, delay = null) {
+    dom.msg.textContent = msg;
+    if (delay !== null) setTimeout(removeMessage, delay * 1000);
+  }
+
+  function removeMessage() {
+    dom.msg.textContent = "";
+  }
+
+  return { initPage, writeMessage };
 })();
 
 export default display;

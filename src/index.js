@@ -34,6 +34,8 @@ import "./assets/style.css";
     while (true) {
       const player = turnsQueue.shift(),
         enemy = turnsQueue[0];
+
+      display.writeMessage(player.isComputer ? "Computer's Turn" : "Your Turn")
       
       const pos = await player.play(enemy.gameBoard),
       attackedShip = enemy.gameBoard.receiveAttack(pos);
@@ -41,8 +43,8 @@ import "./assets/style.css";
 
       const winner = checkWin();
       if (winner) {
-        // pubSub winner
-        console.log(winner);
+        pubSub.publish(events.gameOver, winner)
+        display.writeMessage(winner.isComputer ? "You Loose!" : "You Won!");
         return;
       } else {
         if (attackedShip) {
