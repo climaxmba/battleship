@@ -89,6 +89,7 @@ const customizingModal = (() => {
   }
 
   function randomizeBoard() {
+    dom.shipsContr.innerHTML = null;
     _board = new GameBoard();
     _shipAreas = [..._board.ships].map((shipObj) => [...shipObj.coords]);
     _updateBoard();
@@ -161,7 +162,7 @@ const gameBoards = (() => {
 
 const display = (() => {
   function initPage() {
-    clearBoards(dom.dialogBoard, dom.playerBoard1, dom.playerBoard2);
+    _clearBoards(dom.dialogBoard, dom.playerBoard1, dom.playerBoard2);
 
     // Draw boards
     const board = [];
@@ -184,14 +185,14 @@ const display = (() => {
 
     dom.dialog.showModal();
     gameBoards.initBoards();
-    addEvents();
+    _addEvents();
   }
 
-  function clearBoards(...boards) {
+  function _clearBoards(...boards) {
     boards.forEach((b) => (b.innerHTML = null));
   }
 
-  function addEvents() {
+  function _addEvents() {
     dom.shipsContr.addEventListener("dragstart", (e) =>
       customizingModal.setDraggingLength(e.target.children.length)
     );
@@ -222,10 +223,10 @@ const display = (() => {
 
   function writeMessage(msg, delay = null) {
     dom.msg.textContent = msg;
-    if (delay !== null) setTimeout(removeMessage, delay * 1000);
+    if (delay !== null) setTimeout(_removeMessage, delay * 1000);
   }
 
-  function removeMessage() {
+  function _removeMessage() {
     dom.msg.textContent = "";
   }
 
