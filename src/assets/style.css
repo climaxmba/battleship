@@ -53,28 +53,37 @@ dialog {
   gap: 1rem;
 }
 
-#customize-contr {
+#customize-contr,
+#gameover-contr {
   padding: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
 }
-
 #customize-contr span.valid {
   background-color: var(--validbg);
 }
-
-#customize-ctrl-contr > span {
+#customize-ctrl-contr > span,
+#gameover-contr button:hover,
+#gameover-contr button {
   padding: 5px;
   background: black;
   color: white;
   border-radius: 5px;
 }
-
-#customize-ctrl-contr > span:active {
+#customize-ctrl-contr > span:active,
+#gameover-contr button:active {
   background-color: white;
   color: black;
+}
+
+#gameover-contr p {
+  font-size: large;
+  margin: 0;
+}
+#gameover-contr h2 {
+  margin: 0;
 }
 
 #ships-contr {

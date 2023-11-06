@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1 id="header">Battleship</h1>
-    <dialog data-js-id="dialog">
+    <dialog data-js-id="customizingDialog">
         <div id="customize-contr">
             <h2>Customize your board!</h2>
             <div id="customize">
@@ -27,6 +27,15 @@
                 <span class="customize-ctrls clickable" data-action="random">Random</span>
                 <span class="customizeBtns clickable" data-action="start">Start</span>
             </div>
+        </div>
+    </dialog>
+
+    <dialog data-js-id="gameOverDialog">
+        <div id="gameover-contr">
+            <h2>Game Over!</h2>
+            <p data-js-id="gameOverTxt"></p>
+            <button data-js-id="restartBtn" class="clickable">Restart</button>
+            <button data-js-id="closeBtn" class="clickable">Close</button>
         </div>
     </dialog>
 

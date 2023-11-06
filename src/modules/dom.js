@@ -1,5 +1,9 @@
 const dom = {
-  dialog: document.querySelector('[data-js-id="dialog"]'),
+  customizingDialog: document.querySelector('[data-js-id="customizingDialog"]'),
+  gameOverDialog: document.querySelector('[data-js-id="gameOverDialog"]'),
+  gameOverTxt: document.querySelector('[data-js-id="gameOverTxt"]'),
+  restartBtn: document.querySelector('[data-js-id="restartBtn"]'),
+  closeBtn: document.querySelector('[data-js-id="closeBtn"]'),
   dialogBoard: document.querySelector('[data-js-id="dialogBoard"]'),
   shipsContr: document.querySelector('[data-js-id="shipsContr"]'),
   customizeBtns: document.querySelector('[data-js-id="customizeBtns"]'),

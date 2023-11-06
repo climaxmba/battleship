@@ -2,7 +2,7 @@ import pubSub, { events } from "./pubsub";
 import dom from "./dom";
 import { GameBoard, validateAreas } from "./battleship";
 
-const modal = (() => {
+const customizingModal = (() => {
   let _draggingLength,
     _isVertical = false,
     _currShipArea = [],
@@ -108,7 +108,7 @@ const modal = (() => {
 
   function exitModal() {
     if (_shipAreas.length === 5) {
-      dom.dialog.close();
+      dom.customizingDialog.close();
       pubSub.publish(events.playerBoardCustomized, _shipAreas);
     }
   }
@@ -122,6 +122,19 @@ const modal = (() => {
     randomizeBoard,
     exitModal,
   };
+})();
+
+const gameOverModal = (() => {
+  function showStatus(txt) {
+    dom.gameOverTxt.textContent = txt;
+    dom.gameOverDialog.showModal();
+  }
+
+  function close() {
+    dom.gameOverDialog.close();
+  }
+
+  return { showStatus, close };
 })();
 
 const gameBoards = (() => {
@@ -162,6 +175,14 @@ const gameBoards = (() => {
 
 const display = (() => {
   function initPage() {
+    pubSub.subscribe(events.gameOver, (winner) =>
+      gameOverModal.showStatus(
+        winner.isComputer
+          ? "You Loose! Try Again."
+          : "Congratulations! You Win."
+      )
+    );
+
     _clearBoards(dom.dialogBoard, dom.playerBoard1, dom.playerBoard2);
 
     // Draw boards
@@ -183,7 +204,7 @@ const display = (() => {
       dom.playerBoard2.appendChild(node);
     });
 
-    dom.dialog.showModal();
+    dom.customizingDialog.showModal();
     gameBoards.initBoards();
     _addEvents();
   }
@@ -194,25 +215,27 @@ const display = (() => {
 
   function _addEvents() {
     dom.shipsContr.addEventListener("dragstart", (e) =>
-      modal.setDraggingLength(e.target.children.length)
+      customizingModal.setDraggingLength(e.target.children.length)
     );
     dom.dialogBoard.addEventListener(
       "dragover",
-      modal.revealSquaresValidity
+      customizingModal.revealSquaresValidity
     );
-
-    dom.shipsContr.addEventListener("dragend", modal.dropShip);
+    dom.shipsContr.addEventListener("dragend", customizingModal.dropShip);
 
     dom.customizeBtns.addEventListener("click", (e) => {
       switch (e.target.getAttribute("data-action")) {
         case "rotate":
-          return modal.switchOrientation();
+          return customizingModal.switchOrientation();
         case "random":
-          return modal.randomizeBoard();
+          return customizingModal.randomizeBoard();
         case "start":
-          return modal.exitModal();
+          return customizingModal.exitModal();
       }
     });
+
+    dom.closeBtn.addEventListener("click", gameOverModal.close);
+    // dom.restartBtn.addEventListener("click", fn);
 
     dom.playerBoard2.addEventListener("click", (e) => {
       const square = e.target.getAttribute("data-square-index");
