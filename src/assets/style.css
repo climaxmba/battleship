@@ -3,6 +3,7 @@
   --hitbg: lightpink;
   --validbg: aquamarine;
   --shipbg: darkgrey;
+  --lastbg: 2px solid;
 }
 
 * {
@@ -167,19 +168,15 @@ dialog {
   border: 0.5px solid grey;
   position: relative;
 }
-
 .squares.ship-pos:not(.hit) {
   background-color: var(--shipbg);
 }
-
 .squares.hit {
   background-color: var(--hitbg);
 }
-
 .squares.missed {
   background-color: var(--missedbg);
 }
-
 .squares.missed::after {
   content: "";
   background-color: black;
@@ -190,6 +187,9 @@ dialog {
   height: 5px;
   width: 5px;
   border-radius: 50%;
+}
+.squares.last-hit {
+  border: var(--lastbg);
 }
 
 #game-contr {

@@ -153,6 +153,15 @@ const gameBoards = (() => {
     [...board1.ships]
       .flatMap((shipObj) => [...shipObj.hitCoords])
       .forEach(_getIteratorCallback("hit", dom.playerBoard1));
+    if (board1.lastAttacked) {
+      dom.playerBoard1
+        .querySelectorAll(".last-hit")
+        .forEach((node) => node.classList.remove("last-hit"));
+
+      dom.playerBoard1
+        .querySelector(`[data-square-index="${board1.lastAttacked}"]`)
+        .classList.add("last-hit");
+    }
 
     board2.missedAttacks.forEach(
       _getIteratorCallback("missed", dom.playerBoard2)
@@ -160,6 +169,15 @@ const gameBoards = (() => {
     [...board2.ships]
       .flatMap((shipObj) => [...shipObj.hitCoords])
       .forEach(_getIteratorCallback("hit", dom.playerBoard2));
+    if (board2.lastAttacked) {
+      dom.playerBoard2
+        .querySelectorAll(".last-hit")
+        .forEach((node) => node.classList.remove("last-hit"));
+
+      dom.playerBoard2
+        .querySelector(`[data-square-index="${board2.lastAttacked}"]`)
+        .classList.add("last-hit");
+    }
   }
 
   // Callback generator
