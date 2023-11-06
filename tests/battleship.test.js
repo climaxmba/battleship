@@ -171,6 +171,18 @@ describe("GameBoard", () => {
     [...board2.ships].flatMap(shipObj => [...shipObj.coords]).forEach(pos => board2.receiveAttack(pos));
     expect(board2.getAvailableSquares().length).toBeLessThan(100);
   });
+
+  test('saves last square attacked', () => {
+    expect(board1.lastAttacked).toBeNull();
+    expect(board3.lastAttacked).toBeNull();
+
+    board1.receiveAttack("0,0");
+    board3.receiveAttack("4,6");
+    board3.receiveAttack("9,9");
+
+    expect(board1.lastAttacked).toBe("0,0");
+    expect(board3.lastAttacked).toBe("9,9");
+  });
 });
 
 describe("Player", () => {

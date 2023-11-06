@@ -20,6 +20,7 @@ class GameBoard {
   board = new Map();
   ships = new Set();
   missedAttacks = new Set();
+  lastAttacked = null;
 
   constructor(addRandomShips = true) {
     this.#initBoard();
@@ -27,6 +28,8 @@ class GameBoard {
   }
 
   receiveAttack(square) {
+    this.lastAttacked = square;
+
     for (const shipObj of this.ships) {
       if (shipObj.coords.has(square)) {
         shipObj.hitCoords.add(square);
