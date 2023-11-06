@@ -2,7 +2,7 @@ import pubSub, { events } from "./pubsub";
 import dom from "./dom";
 import { GameBoard, validateAreas } from "./battleship";
 
-const customizingModal = (() => {
+const modal = (() => {
   let _draggingLength,
     _isVertical = false,
     _currShipArea = [],
@@ -194,23 +194,23 @@ const display = (() => {
 
   function _addEvents() {
     dom.shipsContr.addEventListener("dragstart", (e) =>
-      customizingModal.setDraggingLength(e.target.children.length)
+      modal.setDraggingLength(e.target.children.length)
     );
     dom.dialogBoard.addEventListener(
       "dragover",
-      customizingModal.revealSquaresValidity
+      modal.revealSquaresValidity
     );
 
-    dom.shipsContr.addEventListener("dragend", customizingModal.dropShip);
+    dom.shipsContr.addEventListener("dragend", modal.dropShip);
 
     dom.customizeBtns.addEventListener("click", (e) => {
       switch (e.target.getAttribute("data-action")) {
         case "rotate":
-          return customizingModal.switchOrientation();
+          return modal.switchOrientation();
         case "random":
-          return customizingModal.randomizeBoard();
+          return modal.randomizeBoard();
         case "start":
-          return customizingModal.exitModal();
+          return modal.exitModal();
       }
     });
 
