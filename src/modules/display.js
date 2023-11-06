@@ -130,11 +130,11 @@ const gameOverModal = (() => {
     dom.gameOverDialog.showModal();
   }
 
-  function close() {
+  function exitModal() {
     dom.gameOverDialog.close();
   }
 
-  return { showStatus, close };
+  return { showStatus, exitModal };
 })();
 
 const gameBoards = (() => {
@@ -252,7 +252,7 @@ const display = (() => {
       }
     });
 
-    dom.closeBtn.addEventListener("click", gameOverModal.close);
+    dom.closeBtn.addEventListener("click", gameOverModal.exitModal);
     dom.restartBtn.addEventListener("click", () => location.reload());
 
     dom.playerBoard2.addEventListener("click", (e) => {
