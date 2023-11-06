@@ -215,16 +215,9 @@ class Player {
     return area.every(this.gameBoard.isValidPos.bind(this.gameBoard));
   }
 
-  randomSquare(board = new GameBoard()) {
-    let square = `${Math.floor(Math.random() * 10)},${Math.floor(
-      Math.random() * 10
-    )}`;
-    while (board.missedAttacks.has(square) || [...board.ships].flatMap(shipObj => [...shipObj.hitCoords]).includes(square)) {
-      square = `${Math.floor(Math.random() * 10)},${Math.floor(
-        Math.random() * 10
-      )}`;
-    }
-    return square;
+  randomSquare(board) {
+    const avalableSquares = board.getAvailableSquares();
+    return avalableSquares[Math.floor(Math.random() * avalableSquares.length)];
   }
 
   async play(board) {
@@ -232,7 +225,7 @@ class Player {
       // Simulate delay
       await new Promise((res) =>
         setTimeout(() => {
-          res(true);
+          res();
         }, 500)
       );
       return Promise.resolve(this.randomSquare(board));
