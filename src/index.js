@@ -43,7 +43,7 @@ import "./assets/style.css";
       const winner = checkWin();
       if (winner) {
         pubSub.publish(events.gameOver, winner)
-        display.writeMessage(winner.isComputer ? "You Loose!" : "You Won!");
+        display.writeMessage(winner.isComputer ? "You Loose!" : "You Win!");
         return;
       } else {
         if (attackedShip) {

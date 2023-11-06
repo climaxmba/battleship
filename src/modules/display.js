@@ -235,7 +235,7 @@ const display = (() => {
     });
 
     dom.closeBtn.addEventListener("click", gameOverModal.close);
-    // dom.restartBtn.addEventListener("click", fn);
+    dom.restartBtn.addEventListener("click", () => location.reload());
 
     dom.playerBoard2.addEventListener("click", (e) => {
       const square = e.target.getAttribute("data-square-index");
