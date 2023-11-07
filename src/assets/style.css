@@ -67,6 +67,12 @@ dialog {
   align-items: center;
   gap: 1rem;
 }
+#gameover-btns-contr {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
 #customize-contr span.valid,
 .hints .valid {
   background-color: var(--validbg);
