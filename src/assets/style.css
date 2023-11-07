@@ -255,6 +255,8 @@ footer {
 
 footer a {
   color: lightgray;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 @media (width <=750px) {
