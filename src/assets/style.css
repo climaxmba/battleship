@@ -1,3 +1,8 @@
+@font-face {
+  font-family: AlegreyaSC;
+  src: url('./AlegreyaSC-Regular.ttf') format('truetype');
+}
+
 :root {
   --missedbg: #e0e0e0;
   --hitbg: lightpink;
@@ -8,6 +13,7 @@
 
 * {
   box-sizing: border-box;
+  font-family: AlegreyaSC, Georgia, 'Times New Roman', Times, serif;
 }
 
 [draggable="true"]:hover {
