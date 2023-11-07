@@ -34,6 +34,22 @@ class GameBoard {
       if (shipObj.coords.has(square)) {
         shipObj.hitCoords.add(square);
         shipObj.ship.hit();
+
+        // Attack adjacent squares if ship is sunk
+        if (shipObj.ship.isSunk()) {
+          for (const pos of shipObj.coords) {
+            [...this.getAdjSquares(pos)]
+              .filter(
+                (obj) =>
+                  !(
+                    this.missedAttacks.has(obj.square) ||
+                    shipObj.coords.has(obj.square)
+                  )
+              )
+              .forEach((squareObj) => this.missedAttacks.add(squareObj.square));
+          }
+        }
+
         return true;
       }
     }
@@ -225,12 +241,7 @@ class Player {
 
   async play(board) {
     if (this.isComputer) {
-      // Simulate delay
-      await new Promise((res) =>
-        setTimeout(() => {
-          res();
-        }, 500)
-      );
+      await new Promise((res) => setTimeout(res, 500)); // Simulate delay
       return Promise.resolve(this.randomSquare(board));
     } else {
       return new Promise((res) => {

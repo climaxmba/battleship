@@ -259,7 +259,7 @@ footer a {
   font-weight: bold;
 }
 
-@media (width <=750px) {
+@media (width <= 750px) {
   #customize {
     column-gap: 0;
   }
