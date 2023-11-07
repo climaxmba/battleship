@@ -3,7 +3,7 @@
   --hitbg: lightpink;
   --validbg: aquamarine;
   --shipbg: darkgrey;
-  --lastbg: 2px solid;
+  --last: 2px solid;
 }
 
 * {
@@ -32,7 +32,7 @@ body {
   border-bottom: 1px solid;
 }
 
-#msg {
+#turns-status {
   color: white;
   background-color: black;
   padding: 0.5rem;
@@ -53,7 +53,6 @@ dialog {
   justify-content: center;
   gap: 1rem;
 }
-
 #customize-contr,
 #gameover-contr {
   padding: 14px;
@@ -95,19 +94,15 @@ dialog {
   flex-wrap: wrap;
   align-items: flex-start;
 }
-
 #ships-contr[data-isvertical="true"] {
   flex-direction: row;
 }
-
 #ships-contr[data-isvertical="true"] > div {
   grid-template-columns: 25px;
 }
-
 #ships-contr .squares {
   background-color: lightgrey;
 }
-
 #ships-contr > div {
   display: grid;
   grid-template-rows: 25px;
@@ -117,28 +112,22 @@ dialog {
 #ship1 {
   grid-template-columns: repeat(5, 25px);
 }
-
 #ship2 {
   grid-template-columns: repeat(4, 25px);
 }
-
 #ship3,
 #ship4 {
   grid-template-columns: repeat(3, 25px);
 }
-
 #ship5 {
   grid-template-columns: repeat(2, 25px);
 }
-
 #ships-contr[data-isvertical="true"] #ship1 {
   grid-template-rows: repeat(5, 25px);
 }
-
 #ships-contr[data-isvertical="true"] #ship2 {
   grid-template-rows: repeat(4, 25px);
 }
-
 #ships-contr[data-isvertical="true"] #ship3,
 #ships-contr[data-isvertical="true"] #ship4 {
   grid-template-rows: repeat(3, 25px);
@@ -153,11 +142,9 @@ dialog {
   border: 1px solid;
   grid-template: repeat(10, 35px) / repeat(10, 35px);
 }
-
 #customize-contr .board-contr {
   grid-template: repeat(10, 25px) / repeat(10, 25px);
 }
-
 #customize-ctrl-contr {
   display: flex;
   align-items: center;
@@ -191,7 +178,7 @@ dialog {
   border-radius: 50%;
 }
 .squares.last-hit {
-  border: var(--lastbg);
+  border: var(--last);
 }
 
 #game-contr {

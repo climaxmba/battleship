@@ -7,7 +7,7 @@ const dom = {
   dialogBoard: document.querySelector('[data-js-id="dialogBoard"]'),
   shipsContr: document.querySelector('[data-js-id="shipsContr"]'),
   customizeBtns: document.querySelector('[data-js-id="customizeBtns"]'),
-  msg: document.querySelector('[data-js-id="msg"]'),
+  turnStatus: document.querySelector('[data-js-id="turnsStatus"]'),
   playerBoard1: document.querySelector('[data-js-id="playerBoard1"]'),
   playerBoard2: document.querySelector('[data-js-id="playerBoard2"]'),
 };

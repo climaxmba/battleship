@@ -263,12 +263,12 @@ const display = (() => {
   }
 
   function writeMessage(msg, delay = null) {
-    dom.msg.textContent = msg;
+    dom.turnStatus.textContent = msg;
     if (delay !== null) setTimeout(_removeMessage, delay * 1000);
   }
 
   function _removeMessage() {
-    dom.msg.textContent = "";
+    dom.turnStatus.textContent = "";
   }
 
   return { initPage, writeMessage };
