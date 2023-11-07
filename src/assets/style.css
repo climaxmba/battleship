@@ -231,10 +231,12 @@ footer a {
 }
 
 @media (width <=750px) {
+  #customize {
+    column-gap: 0;
+  }
   #customize-contr {
     width: 312px;
   }
-
   #ships-contr {
     flex-direction: unset;
   }
@@ -243,13 +245,11 @@ footer a {
     height: 220px;
     width: 220px;
     grid-template: repeat(10, 1fr) / repeat(10, 1fr);
-  }
-
-  .board-contr {
-    height: 280px;
-    width: 280px;
-    grid-template: repeat(10, 1fr) / repeat(10, 1fr) !important;
-  }
+    }
+    
+    .board-contr {
+      grid-template: repeat(10, 30px) / repeat(10, 30px);
+    }
 
   .players:first-child .squares.missed::after {
     content: "";
