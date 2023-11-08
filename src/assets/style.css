@@ -254,7 +254,7 @@ footer {
 
 footer a {
   color: lightgray;
-  text-decoration: none;
+  font-size: small;
   font-weight: bold;
 }
 
