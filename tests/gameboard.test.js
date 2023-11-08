@@ -1,48 +1,4 @@
-import {
-  GameBoard,
-  Ship,
-  Player,
-  validateAreas,
-} from "../src/modules/battleship";
-
-describe("Ship", () => {
-  let ship1, ship2, ship3;
-
-  beforeEach(() => {
-    ship1 = new Ship(1);
-    ship2 = new Ship(2);
-    ship3 = new Ship(3);
-  });
-
-  test("has accurate length property", () => {
-    expect(ship1.length).toBe(1);
-    expect(ship2.length).toBe(2);
-    expect(ship3.length).toBe(3);
-  });
-
-  test("increases hits on hit()", () => {
-    ship1.hit();
-    ship2.hit();
-    ship2.hit();
-
-    expect(ship1.hits).toBe(1);
-    expect(ship2.hits).toBe(2);
-    expect(ship3.hits).toBe(0);
-  });
-
-  test("sinks when hits equals length", () => {
-    expect(ship1.isSunk() && ship2.isSunk() && ship3.isSunk()).toBeFalsy();
-    ship1.hit();
-    expect(ship1.isSunk()).toBeTruthy();
-    ship3.hit();
-    expect(ship3.isSunk()).toBeFalsy();
-    ship3.hit();
-    ship3.hit();
-    expect(ship3.isSunk()).toBeTruthy();
-    ship2.hit();
-    expect(ship2.isSunk()).toBeFalsy();
-  });
-});
+import { GameBoard } from "../src/modules/battleship";
 
 describe("GameBoard", () => {
   let board1 = new GameBoard(),
@@ -112,10 +68,12 @@ describe("GameBoard", () => {
     }
   });
 
-  test('returns true for ships attacked & false if missed', () => {
-    const shipAreas = [...board1.ships].flatMap(shipObj => [...shipObj.coords]);
-    shipAreas.forEach(pos => expect(board1.receiveAttack(pos)).toBeTruthy());
-    shipAreas.forEach(pos => expect(board3.receiveAttack(pos)).toBeFalsy());
+  test("returns true for ships attacked & false if missed", () => {
+    const shipAreas = [...board1.ships].flatMap((shipObj) => [
+      ...shipObj.coords,
+    ]);
+    shipAreas.forEach((pos) => expect(board1.receiveAttack(pos)).toBeTruthy());
+    shipAreas.forEach((pos) => expect(board3.receiveAttack(pos)).toBeFalsy());
   });
 
   test("records attacks", () => {
@@ -168,11 +126,13 @@ describe("GameBoard", () => {
     expect(board2.getAvailableSquares().length).toEqual(100);
     expect(board3.getAvailableSquares().includes("0,0")).toBeTruthy();
 
-    [...board2.ships].flatMap(shipObj => [...shipObj.coords]).forEach(pos => board2.receiveAttack(pos));
+    [...board2.ships]
+      .flatMap((shipObj) => [...shipObj.coords])
+      .forEach((pos) => board2.receiveAttack(pos));
     expect(board2.getAvailableSquares().length).toBeLessThan(100);
   });
 
-  test('saves last square attacked', () => {
+  test("saves last square attacked", () => {
     expect(board1.lastAttacked).toBeNull();
     expect(board3.lastAttacked).toBeNull();
 
@@ -182,77 +142,5 @@ describe("GameBoard", () => {
 
     expect(board1.lastAttacked).toBe("0,0");
     expect(board3.lastAttacked).toBe("9,9");
-  });
-});
-
-describe("Player", () => {
-  let player = new Player("Alan");
-
-  test("accepts only valid ship area", () => {
-    player.addShip(["0,0", "0,1", "0,2"]);
-
-    expect(player.addShip(["2,2", "2,3", "2,4", "2,5"])).toBeTruthy();
-    expect(player.addShip(["0,0"])).toBeFalsy();
-    expect(player.addShip(["2,5", "2,6"])).toBeFalsy();
-    expect(player.addShip(["9,9", "4,5"])).toBeFalsy();
-    expect(player.addShip(["9,9", "8,8"])).toBeFalsy();
-    expect(player.addShip(["9,9", "9,8"])).toBeTruthy();
-  });
-});
-
-describe("validateAreas", () => {
-  test("only returns true for a valid areas list", () => {
-    expect(
-      validateAreas([
-        ["0,0", "0,1", "0,2", "0,3"],
-        ["2,0", "3,0", "4,0"],
-        ["2,2", "3,2", "4,2"],
-        ["0,5", "0,6"],
-        ["0,8", "0,9"],
-        ["9,9", "9,8"],
-        ["7,7"],
-        ["5,5"],
-        ["9,0"],
-        ["8,2"],
-      ])
-    ).toBeTruthy();
-
-    expect(
-      validateAreas([
-        ["2,9", "3,9", "4,9", "5,9"],
-        ["2,3", "2,4", "2,5"],
-        ["2,0", "3,0", "4,0"],
-        ["0,1", "0,2"],
-        ["0,4", "0,5"],
-        ["4,2", "4,3"],
-        ["6,1"],
-        ["8,4"],
-      ])
-    ).toBeTruthy();
-
-    expect(
-      validateAreas([
-        ["2,9", "3,9", "4,9", "5,9"],
-        ["2,3", "2,4", "2,5"],
-        ["2,0", "3,0", "5,0"],
-      ])
-    ).toBeFalsy();
-
-    expect(
-      validateAreas([
-        ["0,1", "0,2"],
-        ["0,4", "0,5"],
-        ["4,2", "4,3"],
-        ["9,9"],
-        ["5,5"],
-        ["5,5"],
-      ])
-    ).toBeFalsy();
-    expect(
-      validateAreas([
-        ["5,5", "6,6"],
-        ["3,3", "3,3"],
-      ])
-    ).toBeFalsy();
   });
 });
