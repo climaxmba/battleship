@@ -4,7 +4,7 @@ Battleship project on The Odin Project's [curriculum](https://www.theodinproject
 
 ## 📖 About Game
 
-_"Battleship is a strategy type guessing game for two players. It is played on ruled grids (paper or board) on which each player's fleet of warships are marked. The locations of the fleets are concealed from the other player. Players alternate turns calling "shots" at the other player's ships, and the objective of the game is to destroy the opposing player's fleet."_ - [Wikipedia](https://en.m.wikipedia.org/wiki/Battleship_(game)#Description).
+_"Battleship is a strategy type guessing game for two players. It is played on ruled grids (paper or board) on which each player's fleet of warships are marked. The locations of the fleets are concealed from the other player. Players alternate turns calling "shots" at the other player's ships, and the objective of the game is to destroy the opposing player's fleet."_ - [Wikipedia](https://en.m.wikipedia.org/wiki/Battleship_(game)).
 
 ## 💻 Play Demo
 
@@ -15,6 +15,10 @@ Click [here](https://climaxmba.github.io/battleship) to play in your browser.
 - Webpack.
 - Babel.
 - Jest.
+
+## 🙏 Acknowledgement
+- [DragDropTouch](https://github.com/Bernardo-Castilho/dragdroptouch).
+- [The Alegreya Project Authors](https://github.com/huertatipografica/Alegreya).
 
 ## 🔜 Comming Soon
 
