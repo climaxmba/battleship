@@ -4,16 +4,19 @@
 }
 
 :root {
-  --missedbg: #e0e0e0;
-  --hitbg: lightpink;
-  --validbg: aquamarine;
-  --shipbg: darkgrey;
+  --emptysquare: #00000030;
+  --missedbg: #ffffff80;
+  --hitbg: #ffb6c1cc;
+  --validbg: #90ee90cc;
+  --shipbg: #efefef;
+  --bodybg: linear-gradient(20deg, green, aqua, magenta);
   --last: 2px solid;
 }
 
 * {
   box-sizing: border-box;
   font-family: AlegreyaSC, Georgia, 'Times New Roman', Times, serif;
+  color: white;
 }
 
 [draggable="true"]:hover {
@@ -24,32 +27,41 @@
 a {
   cursor: pointer;
 }
+.whitebg {
+  color: #2e2e2e;
+  background: white;
+  box-shadow: 0 1px 3px 2px #00000020;
+  border-radius: 5px;
+}
 
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
   margin: 0;
-}
-
-#header {
-  padding: 1rem;
-  border-bottom: 1px solid;
+  background: var(--bodybg)
 }
 
 #turns-status {
-  color: white;
-  background-color: black;
   padding: 0.5rem;
+  margin: 2rem 0;
 }
 
 dialog {
   padding: 0;
   border: none;
   outline: none;
+  font-weight: lighter;
+  color: black;
+  background-color: #ffffffa0;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   border-radius: 8px;
   box-shadow: 0 0 3px 1px #00000020;
+}
+dialog * {
+  font-weight: lighter;
+  color: inherit;
 }
 
 #customize {
@@ -80,15 +92,13 @@ dialog {
 #customize-ctrl-contr > span,
 #gameover-contr button:hover,
 #gameover-contr button {
+  outline: none;
+  border: none;
   padding: 5px;
-  background: black;
-  color: white;
-  border-radius: 5px;
 }
 #customize-ctrl-contr > span:active,
 #gameover-contr button:active {
-  background-color: white;
-  color: black;
+  box-shadow: none;
 }
 
 #gameover-contr p {
@@ -113,12 +123,12 @@ dialog {
   grid-template-columns: 25px;
 }
 #ships-contr .squares {
-  background-color: lightgrey;
+  background-color: #51515180;
 }
 #ships-contr > div {
   display: grid;
+  gap: 1px;
   grid-template-rows: 25px;
-  border: 1px solid;
 }
 
 #ship1 {
@@ -151,7 +161,7 @@ dialog {
 
 .board-contr {
   display: grid;
-  border: 1px solid;
+  gap: 1px;
   grid-template: repeat(10, 35px) / repeat(10, 35px);
 }
 #customize-contr .board-contr {
@@ -166,21 +176,22 @@ dialog {
 
 .squares,
 .hints span {
-  border: 0.5px solid grey;
   position: relative;
+  border-radius: 3px;
+  background-color: var(--emptysquare);
 }
 .ship-pos:not(.hit) {
-  background-color: var(--shipbg);
+  background-color: var(--shipbg) !important;
 }
 .hit {
-  background-color: var(--hitbg);
+  background-color: var(--hitbg) !important;
 }
 .missed {
-  background-color: var(--missedbg);
+  background-color: var(--missedbg) !important;
 }
 .missed::after {
   content: "";
-  background-color: black;
+  background-color: white;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -199,6 +210,7 @@ dialog {
   gap: 2rem;
   align-items: center;
   justify-content: center;
+  margin: 2rem 0;
 }
 .players:last-child span.squares:not(.missed):not(.hit):hover {
     background-color: var(--validbg);
@@ -215,13 +227,12 @@ dialog {
 }
 
 #hints-contr {
+  align-self: stretch;
+  background-color: #00000080;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-#hints-contr h2 {
-  border-bottom: 1px solid;
 }
 #hints-contr > div {
   display: flex;
@@ -241,19 +252,21 @@ dialog {
 }
 
 footer {
-  margin-top: 95vh;
   padding: 2rem;
+  padding-top: 95vh;
   gap: 0.5rem;
-  background-color: black;
-  color: white;
+  background-color: #00000080;
   align-self: stretch;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+footer * {
+  color: inherit;
+}
+
 footer a {
-  color: lightgray;
   font-size: small;
   font-weight: bold;
 }
