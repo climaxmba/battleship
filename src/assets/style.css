@@ -8,8 +8,8 @@
   --missedbg: #ffffff80;
   --hitbg: #ffb6c1cc;
   --validbg: #90ee90cc;
-  --shipbg: #efefef;
-  --bodybg: linear-gradient(20deg, green, aqua, magenta);
+  --shipbg: #2e2e2e80;
+  --bodybg: linear-gradient(20deg, #b6009b, #7441e1);
   --last: 2px solid;
 }
 
@@ -54,8 +54,8 @@ dialog {
   font-weight: lighter;
   color: black;
   background-color: #ffffffa0;
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
   border-radius: 8px;
   box-shadow: 0 0 3px 1px #00000020;
 }
@@ -228,11 +228,17 @@ dialog * {
 
 #hints-contr {
   align-self: stretch;
-  background-color: #00000080;
+  color: #2e2e2e;
+  background-color: #ffffffa0;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+#hints-contr * {
+  color: inherit;
 }
 #hints-contr > div {
   display: flex;
@@ -246,16 +252,19 @@ dialog * {
   justify-content: center;
 }
 #hints-contr span {
-  display: block;
+  box-shadow: 0 2px 3px 2px #00000020;
   height: 25px;
   width: 25px;
 }
 
 footer {
+  color: #2e2e2e;
+  background-color: #ffffffa0;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   padding: 2rem;
   padding-top: 95vh;
   gap: 0.5rem;
-  background-color: #00000080;
   align-self: stretch;
   display: flex;
   flex-direction: column;
@@ -293,14 +302,7 @@ footer a {
     }
 
   .players:first-child .squares.missed::after {
-    content: "";
-    background-color: black;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     height: 3px;
     width: 3px;
-    border-radius: 50%;
   }
 }
