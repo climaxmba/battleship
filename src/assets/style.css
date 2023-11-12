@@ -336,10 +336,10 @@ footer a {
 .bubbles {
   border-radius: 50%;
   position: fixed;
+  background-color: #ffffffa0;
 }
 
 .bubbles:first-child {
-  background-color: #ffffffa0;
   transform: translate(-50%, -50%);
   height: 150px;
   width: 150px;
@@ -347,14 +347,12 @@ footer a {
 }
 
 .bubbles:nth-child(2) {
-  border: 8px solid #ffffffa0;
   height: 60px;
   width: 60px;
   animation: bubble2 10s ease-in-out infinite;
 }
 
 .bubbles:last-child {
-  background-color: #ffffffa0;
   height: 100px;
   width: 100px;
   animation: bubble3 30s ease-in-out infinite;
@@ -380,7 +378,7 @@ footer a {
 @keyframes bubble2 {
   0% {
     scale: 4;
-    opacity: 0.08;
+    opacity: 0.06;
   }
 
   50% {
@@ -390,7 +388,7 @@ footer a {
 
   100% {
     scale: 4;
-    opacity: 0.08;
+    opacity: 0.06;
   }
 }
 
