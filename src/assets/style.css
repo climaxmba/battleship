@@ -39,7 +39,7 @@ body {
   flex-direction: column;
   align-items: center;
   margin: 0;
-  background: var(--bodybg)
+  background: var(--bodybg);
 }
 
 #turns-status {
@@ -270,23 +270,111 @@ footer {
   flex-direction: column;
   align-items: center;
 }
-
 footer * {
   color: inherit;
 }
-
 footer a {
   font-size: small;
   font-weight: bold;
 }
 
-@media (width <= 750px) {
+#bubbles-contr {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.bubbles {
+  border-radius: 50%;
+  position: fixed;
+}
+.bubbles:first-child {
+  background-color: #ffffffa0;
+  transform: translate(-50%, -50%);
+  height: 150px;
+  width: 150px;
+  animation: bubble1 20s ease-in-out infinite;
+}
+.bubbles:nth-child(2) {
+  border: 8px solid #ffffffa0;
+  height: 60px;
+  width: 60px;
+  animation: bubble2 10s ease-in-out infinite;
+}
+.bubbles:last-child {
+  background-color: #ffffffa0;
+  height: 100px;
+  width: 100px;
+  animation: bubble3 30s ease-in-out infinite;
+}
+
+@keyframes bubble1 {
+  0% {
+    scale: 1;
+    opacity: 0.12;
+  }
+
+  50% {
+    scale: 6;
+    opacity: 0;
+  }
+
+  100% {
+    scale: 1;
+    opacity: 0.12;
+  }
+}
+@keyframes bubble2 {
+  0% {
+    scale: 4;
+    opacity: 0.08;
+  }
+
+  50% {
+    scale: 0.5;
+    opacity: 0;
+  }
+
+  100% {
+    scale: 4;
+    opacity: 0.08;
+  }
+}
+@keyframes bubble3 {
+  0% {
+    scale: 3;
+    opacity: 0;
+    transform: translate(-90px, -100px);
+  }
+
+  50% {
+    scale: 5;
+    opacity: 0.1;
+    transform: translateX(90px);
+  }
+
+  100% {
+    scale: 3;
+    opacity: 0;
+    transform: translate(-90px, 100px);
+  }
+}
+@media (width <=750px) {
   #customize {
     column-gap: 0;
   }
+
   #customize-contr {
     width: 312px;
   }
+
   #ships-contr {
     flex-direction: unset;
   }
@@ -295,11 +383,11 @@ footer a {
     height: 220px;
     width: 220px;
     grid-template: repeat(10, 1fr) / repeat(10, 1fr);
-    }
-    
-    .board-contr {
-      grid-template: repeat(10, 30px) / repeat(10, 30px);
-    }
+  }
+
+  .board-contr {
+    grid-template: repeat(10, 30px) / repeat(10, 30px);
+  }
 
   .players:first-child .squares.missed::after {
     height: 3px;

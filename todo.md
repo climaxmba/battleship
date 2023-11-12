@@ -1,6 +1,6 @@
 # List of changes to make on this branch
 
 + Change colors ✔
-- Add Background image
+- Add & animate Background elements
 - Change fonts
 - Add validation-feedback in dialog
