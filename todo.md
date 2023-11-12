@@ -2,5 +2,5 @@
 
 + Change colors ✔
 + Add & animate Background elements ✔
-- Adjust layout
++ Adjust layout ✔
 - Add validation-feedback in dialog
