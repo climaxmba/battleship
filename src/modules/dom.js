@@ -1,5 +1,6 @@
 const dom = {
   customizingDialog: document.querySelector('[data-js-id="customizingDialog"]'),
+  validationMsg: document.querySelector('[data-js-id="validationMsg"]'),
   gameOverDialog: document.querySelector('[data-js-id="gameOverDialog"]'),
   gameOverTxt: document.querySelector('[data-js-id="gameOverTxt"]'),
   restartBtn: document.querySelector('[data-js-id="restartBtn"]'),

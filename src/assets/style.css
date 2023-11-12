@@ -76,6 +76,16 @@ dialog * {
   gap: 1rem;
 }
 
+#validation-msg {
+  display: none;
+}
+
+#validation-msg.active {
+  display: block;
+  padding: 2px 12px;
+  box-shadow: none;
+}
+
 #customize-contr,
 #gameover-contr {
   padding: 14px;

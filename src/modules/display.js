@@ -106,8 +106,27 @@ const customizingModal = (() => {
       );
   }
 
+  function _validateShips() {
+    if (_shipAreas.length !== 5) {
+      _writeValidationMsg("Drop all 5 ships on the board!", 3000);
+      return false;
+    } else return true;
+  }
+
+  function _writeValidationMsg(msg, delay = null) {
+    dom.validationMsg.textContent = msg;
+    dom.validationMsg.classList.add("active");
+
+    if (delay !== null) setTimeout(_removeValidationMsg, delay);
+  }
+
+  function _removeValidationMsg() {
+    dom.validationMsg.textContent = "";
+    dom.validationMsg.classList.remove("active");
+  }
+
   function exitModal() {
-    if (_shipAreas.length === 5) {
+    if (_validateShips()) {
       dom.customizingDialog.close();
       pubSub.publish(events.playerBoardCustomized, _shipAreas);
     }
