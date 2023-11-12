@@ -4,4 +4,4 @@
 + Add & animate Background elements ✔
 + Adjust layout ✔
 + Add validation-feedback in dialog ✔
-- Fix gameover message
++ Fix gameover message ✔

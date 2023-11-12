@@ -144,7 +144,8 @@ const customizingModal = (() => {
 })();
 
 const gameOverModal = (() => {
-  function showStatus(txt) {
+  function showStatus(title, txt) {
+    dom.gameOverTitle.textContent = title
     dom.gameOverTxt.textContent = txt;
     dom.gameOverDialog.showModal();
   }
@@ -213,11 +214,9 @@ const gameBoards = (() => {
 const display = (() => {
   function initPage() {
     pubSub.subscribe(events.gameOver, (winner) =>
-      gameOverModal.showStatus(
-        winner.isComputer
-          ? "You Loose! Try Again."
-          : "Congratulations! You Win."
-      )
+      winner.isComputer
+        ? gameOverModal.showStatus("Game Over!", "You Loose.")
+        : gameOverModal.showStatus("Congratulations!", " You Win.")
     );
 
     _clearBoards(dom.dialogBoard, dom.playerBoard1, dom.playerBoard2);

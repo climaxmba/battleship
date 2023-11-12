@@ -34,15 +34,18 @@ import "./assets/style.css";
       const player = turnsQueue.shift(),
         enemy = turnsQueue[0];
 
-      display.writeMessage(player.isComputer ? "Computer's Turn" : "Your Turn")
-      
+      display.writeMessage(player.isComputer ? "Computer's Turn" : "Your Turn");
+
       const pos = await player.play(enemy.gameBoard),
-      attackedShip = enemy.gameBoard.receiveAttack(pos);
-      pubSub.publish(events.boardsChanged, { board1: player1.gameBoard, board2: player2.gameBoard });
+        attackedShip = enemy.gameBoard.receiveAttack(pos);
+      pubSub.publish(events.boardsChanged, {
+        board1: player1.gameBoard,
+        board2: player2.gameBoard,
+      });
 
       const winner = checkWin();
       if (winner) {
-        pubSub.publish(events.gameOver, winner)
+        pubSub.publish(events.gameOver, winner);
         display.writeMessage(winner.isComputer ? "You Loose!" : "You Win!");
         return;
       } else {

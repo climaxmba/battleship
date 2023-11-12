@@ -2,6 +2,7 @@ const dom = {
   customizingDialog: document.querySelector('[data-js-id="customizingDialog"]'),
   validationMsg: document.querySelector('[data-js-id="validationMsg"]'),
   gameOverDialog: document.querySelector('[data-js-id="gameOverDialog"]'),
+  gameOverTitle: document.querySelector('[data-js-id="gameOverTitle"]'),
   gameOverTxt: document.querySelector('[data-js-id="gameOverTxt"]'),
   restartBtn: document.querySelector('[data-js-id="restartBtn"]'),
   closeBtn: document.querySelector('[data-js-id="closeBtn"]'),
