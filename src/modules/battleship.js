@@ -88,7 +88,8 @@ class GameBoard {
     const boardSquares = [...this.board.keys()],
       shipPosAttacked = [...this.ships].flatMap((obj) => [...obj.hitCoords]);
     const squareSet = boardSquares.filter(
-      (square) => !(this.missedAttacks.has(square) || shipPosAttacked.includes(square))
+      (square) =>
+        !(this.missedAttacks.has(square) || shipPosAttacked.includes(square))
     );
 
     return [...squareSet];
@@ -269,17 +270,17 @@ class Player {
   getBestSquare(board) {
     let bestSquare,
       maxProb = -Infinity,
-      probMap = this.calcProbMap(board);
+      probMap = this.#calcProbMap(board);
     for (const square of probMap.keys()) {
       if (probMap.get(square) > maxProb) {
         bestSquare = square;
         maxProb = probMap.get(square);
       }
-    } console.log(probMap);
+    }
     return bestSquare;
   }
 
-  calcProbMap(board = this.gameBoard) {
+  #calcProbMap(board = this.gameBoard) {
     let probMap = new Map();
 
     for (let x = 0; x < 10; x++) {
@@ -328,11 +329,20 @@ class Player {
                 else return true;
               })
               .forEach((obj) => {
+                const square = obj.square;
                 if (
-                  !hits.includes(obj.square) &&
-                  !board.missedAttacks.has(obj.square)
-                )
-                  probMap.set(obj.square, probMap.get(obj.square) + 1);
+                  !hits.includes(square) &&
+                  !board.missedAttacks.has(square)
+                ) {
+                  if (
+                    hits.includes(`${parseInt(square[0]) + 2},${square[2]}`) ||
+                    hits.includes(`${parseInt(square[0]) - 2},${square[2]}`) ||
+                    hits.includes(`${square[0]},${parseInt(square[2]) + 2}`) ||
+                    hits.includes(`${square[0]},${parseInt(square[2]) - 2}`)
+                  )
+                    probMap.set(square, probMap.get(square) + 5); //Increase probability in the direction of the ship
+                  probMap.set(square, probMap.get(square) + 1);
+                }
               });
           });
         });
