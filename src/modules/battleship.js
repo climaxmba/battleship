@@ -239,10 +239,113 @@ class Player {
     return avalableSquares[Math.floor(Math.random() * avalableSquares.length)];
   }
 
+  #canExistShip(board, pos, shipLength, isVertical = false) {
+    const area = [];
+    for (let i = 0; i < shipLength; i++) {
+      if (isVertical) {
+        area.push(`${pos[0]},${parseInt(pos[2]) + i}`);
+      } else {
+        area.push(`${parseInt(pos[0]) + i},${pos[2]}`);
+      }
+    }
+
+    if (!validateAreas([area])) return false;
+
+    const hitAreas = [...board.ships].flatMap((shipObj) => [
+      ...shipObj.hitCoords,
+    ]);
+    try {
+      area.forEach((pos) => {
+        if (board.missedAttacks.has(pos) || hitAreas.includes(pos))
+          throw new Error();
+      });
+    } catch {
+      return false;
+    }
+
+    return area;
+  }
+
+  getBestSquare(board) {
+    let bestSquare,
+      maxProb = -Infinity,
+      probMap = this.calcProbMap(board);
+    for (const square of probMap.keys()) {
+      if (probMap.get(square) > maxProb) {
+        bestSquare = square;
+        maxProb = probMap.get(square);
+      }
+    } console.log(probMap);
+    return bestSquare;
+  }
+
+  calcProbMap(board = this.gameBoard) {
+    let probMap = new Map();
+
+    for (let x = 0; x < 10; x++) {
+      for (let y = 0; y < 10; y++) {
+        probMap.set(`${x},${y}`, 0);
+      }
+    }
+
+    board.ships.forEach((shipObj) => {
+      if (!shipObj.ship.isSunk()) {
+        [...board.board.keys()].forEach((pos) => {
+          const vertical = this.#canExistShip(
+              board,
+              pos,
+              shipObj.ship.length,
+              true
+            ),
+            horizontal = this.#canExistShip(
+              board,
+              pos,
+              shipObj.ship.length,
+              false
+            );
+
+          if (vertical)
+            vertical.forEach((pos) => probMap.set(pos, probMap.get(pos) + 1));
+          if (horizontal)
+            horizontal.forEach((pos) => probMap.set(pos, probMap.get(pos) + 1));
+          const hits = [...board.ships].flatMap((shipObj) => [
+            ...shipObj.hitCoords,
+          ]);
+          hits.forEach((hit) => {
+            [...board.getAdjSquares(hit)]
+              .filter((obj) => {
+                const square = obj.square;
+                if (
+                  `${parseInt(hit[0]) + 1},${parseInt(hit[2]) + 1}` ===
+                    square ||
+                  `${parseInt(hit[0]) - 1},${parseInt(hit[2]) - 1}` ===
+                    square ||
+                  `${parseInt(hit[0]) + 1},${parseInt(hit[2]) - 1}` ===
+                    square ||
+                  `${parseInt(hit[0]) - 1},${parseInt(hit[2]) + 1}` === square
+                )
+                  return false;
+                else return true;
+              })
+              .forEach((obj) => {
+                if (
+                  !hits.includes(obj.square) &&
+                  !board.missedAttacks.has(obj.square)
+                )
+                  probMap.set(obj.square, probMap.get(obj.square) + 1);
+              });
+          });
+        });
+      }
+    });
+
+    return probMap;
+  }
+
   async play(board) {
     if (this.isComputer) {
       await new Promise((res) => setTimeout(res, 500)); // Simulate delay
-      return Promise.resolve(this.randomSquare(board));
+      return Promise.resolve(this.getBestSquare(board));
     } else {
       return new Promise((res) => {
         pubSub.subscribe(events.userPlayed, handler);
