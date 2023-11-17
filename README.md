@@ -22,8 +22,7 @@ Click [here](https://climaxmba.github.io/battleship) to play in your browser.
 
 ## 🔜 Comming Soon
 
-- Smarter computer player.
-- UI improvements.
+- 2 players support.
 
 ## 🐛 Found a bug?
 
