@@ -286,7 +286,7 @@ class Player {
     return bestSquares[Math.floor(Math.random() * bestSquares.length)];
   }
 
-  #calcProbMap(board = this.gameBoard) {
+  #calcProbMap(board) {
     let probMap = new Map();
 
     for (let x = 0; x < 10; x++) {
@@ -360,8 +360,9 @@ class Player {
 
   async play(board) {
     if (this.isComputer) {
-      await new Promise((res) => setTimeout(res, 500)); // Simulate delay
-      if (!board.missedAttacks.size) return Promise.resolve(this.randomSquare(board));
+      await new Promise((res) => setTimeout(res, 250)); // Simulate delay
+      if (!board.missedAttacks.size)
+        return Promise.resolve(this.randomSquare(board));
       return Promise.resolve(this.getBestSquare(board));
     } else {
       return new Promise((res) => {
