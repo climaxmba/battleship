@@ -268,16 +268,22 @@ class Player {
   }
 
   getBestSquare(board) {
-    let bestSquare,
+    let bestSquares = [],
       maxProb = -Infinity,
       probMap = this.#calcProbMap(board);
+
+    // Group squares with the highest values together
     for (const square of probMap.keys()) {
       if (probMap.get(square) > maxProb) {
-        bestSquare = square;
+        bestSquares = [square];
         maxProb = probMap.get(square);
+      } else if (probMap.get(square) === maxProb) {
+        bestSquares.push(square);
       }
     }
-    return bestSquare;
+
+    // Return a random square with the highest probability
+    return bestSquares[Math.floor(Math.random() * bestSquares.length)];
   }
 
   #calcProbMap(board = this.gameBoard) {
@@ -340,7 +346,7 @@ class Player {
                     hits.includes(`${square[0]},${parseInt(square[2]) + 2}`) ||
                     hits.includes(`${square[0]},${parseInt(square[2]) - 2}`)
                   )
-                    probMap.set(square, probMap.get(square) + 5); //Increase probability in the direction of the ship
+                    probMap.set(square, probMap.get(square) + 2); //Increase probability in the direction of the ship
                   probMap.set(square, probMap.get(square) + 1);
                 }
               });
@@ -355,6 +361,7 @@ class Player {
   async play(board) {
     if (this.isComputer) {
       await new Promise((res) => setTimeout(res, 500)); // Simulate delay
+      if (!board.missedAttacks.size) return Promise.resolve(this.randomSquare(board));
       return Promise.resolve(this.getBestSquare(board));
     } else {
       return new Promise((res) => {
