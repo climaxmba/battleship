@@ -1,6 +1,7 @@
 import pubSub, { events } from "./modules/pubsub";
 import { Player } from "./modules/battleship";
 import display from "./modules/display";
+import "./modules/soundfx";
 import "./assets/style.css";
 
 (() => {
@@ -42,6 +43,8 @@ import "./assets/style.css";
         board1: player1.gameBoard,
         board2: player2.gameBoard,
       });
+
+      if (player.isComputer) pubSub.publish(events.computerPlayed, pos);
 
       const winner = checkWin();
       if (winner) {

@@ -21,6 +21,7 @@ export const events = {
   initBoard: "initBoard",
   gameOver: "gameOver",
   usersTurn: "usersTurn",
+  computerPlayed: "computerPlayed",
   userPlayed: "userPlayed",
   boardsChanged: "boardsChanged"
 };
