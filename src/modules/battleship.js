@@ -360,7 +360,7 @@ class Player {
 
   async play(board) {
     if (this.isComputer) {
-      await new Promise((res) => setTimeout(res, 250)); // Simulate delay
+      await new Promise((res) => setTimeout(res, 220)); // Simulate delay
       if (!board.missedAttacks.size)
         return Promise.resolve(this.randomSquare(board));
       return Promise.resolve(this.getBestSquare(board));
