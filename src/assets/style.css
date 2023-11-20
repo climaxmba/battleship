@@ -47,7 +47,6 @@ body {
 
 #turns-status {
   padding: 0.5rem;
-  margin: 2rem 0;
 }
 
 dialog {
@@ -417,10 +416,6 @@ footer a {
 }
 
 @media (width <=750px) {
-  #customize {
-    column-gap: 0;
-  }
-
   #customize-contr {
     width: 312px;
   }
