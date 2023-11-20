@@ -301,7 +301,7 @@ class Player {
 
     board.ships.forEach((shipObj) => {
       if (!shipObj.ship.isSunk()) {
-        [...board.board.keys()].forEach((pos) => {
+        board.board.forEach((_val, pos) => {
           const vertical = this.#canExistShip(
               board,
               pos,
