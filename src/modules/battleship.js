@@ -21,6 +21,7 @@ class GameBoard {
   ships = new Set();
   missedAttacks = new Set();
   lastAttacked = null;
+  sunkShipLast = false;
 
   constructor(addRandomShips = true) {
     this.#initBoard();
@@ -29,11 +30,14 @@ class GameBoard {
 
   receiveAttack(square) {
     this.lastAttacked = square;
+    this.sunkShipLast = false;
 
     for (const shipObj of this.ships) {
       if (shipObj.coords.has(square)) {
         shipObj.hitCoords.add(square);
         shipObj.ship.hit();
+
+        if (shipObj.ship.isSunk()) this.sunkShipLast = true;
 
         // Attack adjacent squares if ship is sunk
         if (shipObj.ship.isSunk()) {
@@ -346,7 +350,7 @@ class Player {
                     hits.includes(`${square[0]},${parseInt(square[2]) + 2}`) ||
                     hits.includes(`${square[0]},${parseInt(square[2]) - 2}`)
                   )
-                    probMap.set(square, probMap.get(square) + 2); //Increase probability in the direction of the ship
+                    probMap.set(square, probMap.get(square) + 5); //Increase probability in the direction of the ship
                   probMap.set(square, probMap.get(square) + 1);
                 }
               });

@@ -1,7 +1,7 @@
 import pubSub, { events } from "./modules/pubsub";
 import { Player } from "./modules/battleship";
 import display from "./modules/display";
-import "./modules/soundfx";
+import soundFx from "./modules/soundfx";
 import "./assets/style.css";
 
 (() => {
@@ -39,16 +39,22 @@ import "./assets/style.css";
 
       const pos = await player.play(enemy.gameBoard),
         attackedShip = enemy.gameBoard.receiveAttack(pos);
+
+      enemy.gameBoard.sunkShipLast
+        ? soundFx.playShipSunkSound()
+        : soundFx.play();
+
       pubSub.publish(events.boardsChanged, {
         board1: player1.gameBoard,
         board2: player2.gameBoard,
       });
 
-      if (player.isComputer) pubSub.publish(events.computerPlayed, pos);
-
       const winner = checkWin();
       if (winner) {
         pubSub.publish(events.gameOver, winner);
+        winner.isComputer
+          ? soundFx.playGameOverSound()
+          : soundFx.playCongSound();
         display.writeMessage(winner.isComputer ? "You Loose!" : "You Win!");
         return;
       } else {

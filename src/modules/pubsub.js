@@ -23,7 +23,7 @@ export const events = {
   usersTurn: "usersTurn",
   computerPlayed: "computerPlayed",
   userPlayed: "userPlayed",
-  boardsChanged: "boardsChanged"
+  boardsChanged: "boardsChanged",
 };
 
 export default pubSub;
