@@ -102,6 +102,10 @@ dialog * {
   justify-content: center;
 }
 
+#gameover-btns-contr button {
+  padding: 6px 30px !important;
+}
+
 #customize-contr span.valid,
 .hints .valid {
   background-color: var(--validbg);
