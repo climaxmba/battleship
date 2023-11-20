@@ -17,8 +17,10 @@ Click [here](https://climaxmba.github.io/battleship) to play in your browser.
 - Jest.
 
 ## 🙏 Acknowledgement
-- [DragDropTouch](https://github.com/Bernardo-Castilho/dragdroptouch).
-- [The Alegreya Project Authors](https://github.com/huertatipografica/Alegreya).
+
+- [Pixbay](https://pixabay.com/sound-effects/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music) - Sound effects.
+- [DragDropTouch](https://github.com/Bernardo-Castilho/dragdroptouch) - Drag and drop for touchscreen devices.
+- [The Alegreya Project Authors](https://github.com/huertatipografica/Alegreya) - Alegreya SC font.
 
 ## 🔜 Comming Soon
 
