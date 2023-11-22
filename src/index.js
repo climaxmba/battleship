@@ -6,7 +6,7 @@ import "./assets/style.css";
 
 (() => {
   let player1 = new Player(""),
-    player2 = new Player("", true);
+    player2 = new Player("", true, global.Worker ? true : false);
 
   pubSub.subscribe(events.playerBoardCustomized, setPlayer);
   pubSub.subscribe(events.initBoard, startGameLoop);

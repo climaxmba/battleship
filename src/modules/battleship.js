@@ -184,7 +184,7 @@ class Player {
   name;
   gameBoard;
 
-  constructor(name, isComputer = false) {
+  constructor(name, isComputer = false, useWorker = false) {
     this.name = name;
     this.isComputer = isComputer;
     if (isComputer) {
@@ -192,6 +192,11 @@ class Player {
     } else {
       this.gameBoard = new GameBoard(false);
     }
+
+    if (useWorker)
+      this.worker = new Worker(
+        new URL("./battleship.worker.js", import.meta.url)
+      );
   }
 
   addShip(area) {
@@ -365,9 +370,15 @@ class Player {
   async play(board) {
     if (this.isComputer) {
       await new Promise((res) => setTimeout(res, 220)); // Simulate delay
-      if (!board.missedAttacks.size)
-        return Promise.resolve(this.randomSquare(board));
-      return Promise.resolve(this.getBestSquare(board));
+
+      return this.worker
+        ? new Promise((res) => {
+            this.worker.onmessage = (e) => {
+              res(e.data);
+            };
+            this.worker.postMessage(board);
+          })
+        : Promise.resolve(this.getBestSquare(board));
     } else {
       return new Promise((res) => {
         pubSub.subscribe(events.userPlayed, handler);
