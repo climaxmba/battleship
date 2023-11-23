@@ -24,6 +24,8 @@ export const events = {
   computerPlayed: "computerPlayed",
   userPlayed: "userPlayed",
   boardsChanged: "boardsChanged",
+  soundonClicked: "soundonClicked",
+  soundoffClicked: "soundoffClicked",
 };
 
 export default pubSub;

@@ -145,7 +145,7 @@ const customizingModal = (() => {
 
 const gameOverModal = (() => {
   function showStatus(title, txt) {
-    dom.gameOverTitle.textContent = title
+    dom.gameOverTitle.textContent = title;
     dom.gameOverTxt.textContent = txt;
     dom.gameOverDialog.showModal();
   }
@@ -277,6 +277,17 @@ const display = (() => {
       const square = e.target.getAttribute("data-square-index");
       if (square && e.target.className === "squares")
         pubSub.publish(events.userPlayed, square);
+    });
+
+    dom.soundOn.addEventListener("click", () => {
+      dom.soundOn.classList.remove("active");
+      dom.soundOff.classList.add("active");
+      pubSub.publish(events.soundonClicked, null);
+    });
+    dom.soundOff.addEventListener("click", () => {
+      dom.soundOn.classList.add("active");
+      dom.soundOff.classList.remove("active");
+      pubSub.publish(events.soundoffClicked, null);
     });
   }
 

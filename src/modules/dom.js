@@ -12,6 +12,8 @@ const dom = {
   turnStatus: document.querySelector('[data-js-id="turnsStatus"]'),
   playerBoard1: document.querySelector('[data-js-id="playerBoard1"]'),
   playerBoard2: document.querySelector('[data-js-id="playerBoard2"]'),
+  soundOn: document.querySelector('[data-js-id="soundOff"]'),
+  soundOff: document.querySelector('[data-js-id="soundOn"]'),
 };
 
 export default dom;

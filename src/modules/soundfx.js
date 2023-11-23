@@ -2,6 +2,7 @@ import congSrc from "../assets/congratulations.mp3";
 import gameOverSrc from "../assets/gameover.mp3";
 import playSrc from "../assets/play.mp3";
 import shipSunkSrc from "../assets/shipsunk.mp3";
+import pubSub, { events } from "./pubsub";
 
 const soundFx = (() => {
   const congSound = new Audio(congSrc),
@@ -9,24 +10,43 @@ const soundFx = (() => {
     playSound = new Audio(playSrc),
     shipSunkSound = new Audio(shipSunkSrc);
 
+  let _soundsEnabled = true;
+  pubSub.subscribe(events.soundonClicked, _enableSounds);
+  pubSub.subscribe(events.soundoffClicked, _disableSounds);
+
   function playCongSound() {
-    congSound.load();
-    congSound.play();
+    if (_soundsEnabled) {
+      congSound.load();
+      congSound.play();
+    }
   }
 
   function playGameOverSound() {
-    gameOverSound.load();
-    gameOverSound.play();
+    if (_soundsEnabled) {
+      gameOverSound.load();
+      gameOverSound.play();
+    }
   }
 
   function play() {
-    playSound.load();
-    playSound.play();
+    if (_soundsEnabled) {
+      playSound.load();
+      playSound.play();
+    }
   }
 
   function playShipSunkSound() {
-    shipSunkSound.load();
-    shipSunkSound.play();
+    if (_soundsEnabled) {
+      shipSunkSound.load();
+      shipSunkSound.play();
+    }
+  }
+
+  function _disableSounds() {
+    _soundsEnabled = false;
+  }
+  function _enableSounds() {
+    _soundsEnabled = true;
   }
 
   return { play, playCongSound, playGameOverSound, playShipSunkSound };
