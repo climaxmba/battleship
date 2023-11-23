@@ -49,6 +49,22 @@ body {
   padding: 0.5rem;
 }
 
+#sounds-contr {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+#sounds-contr svg {
+  height: 25px;
+  width: auto;
+  fill: white;
+}
+
+#sounds-contr svg:not(.active) {
+  display: none;
+}
+
 dialog {
   padding: 0;
   border: none;
