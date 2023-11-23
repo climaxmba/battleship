@@ -35,7 +35,7 @@ import "./assets/style.css";
       const player = turnsQueue.shift(),
         enemy = turnsQueue[0];
 
-      display.writeMessage(player.isComputer ? "Computer's Turn" : "Your Turn");
+      display.writeMessage(player.isComputer ? "Waiting for computer..." : "Your Turn");
 
       const pos = await player.play(enemy.gameBoard),
         attackedShip = enemy.gameBoard.receiveAttack(pos);
